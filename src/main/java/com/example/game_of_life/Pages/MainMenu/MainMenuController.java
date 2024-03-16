@@ -94,10 +94,12 @@
             primaryStage.setScene(scene);
 
             GameController gameController = fxmlLoader.getController();
-            gameController.setGridX(Integer.parseInt(gameScreenX.getText()));
-            gameController.setGridY(Integer.parseInt(gameScreenY.getText()));
-            gameController.setGameSpeed((int) gameSpeed.getValue());
-            gameController.setGenerateStartCivilization(generateStart.isSelected());
+
+            gameController.setData(
+                    Integer.parseInt(gameScreenX.getText()),
+                    Integer.parseInt(gameScreenY.getText()),
+                    (int) gameSpeed.getValue(),
+                    generateStart.isSelected());
             gameController.initialize();
             primaryStage.show();
         }
