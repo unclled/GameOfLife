@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_of_life.Pages.MainMenu.MainMenuController">
+   <ImageView fitHeight="555.0" fitWidth="693.0" layoutX="-13.0" pickOnBounds="true" preserveRatio="true">
+      <effect>
+         <BoxBlur iterations="3" />
+      </effect>
+      <Image url="@../../../background/caMain.gif" />
+   </ImageView>
+   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+   <Pane id="helloWindow" layoutX="190.0" layoutY="76.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #fffff4; -fx-background-radius: 14;">
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+      <Text fill="#0033bf" layoutX="26.0" layoutY="60.0" stroke="#6169ff" strokeType="INSIDE" strokeWidth="0.1" text="ИГРА ЖИЗНЬ" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </Text>
+      <VBox fx:id="startWindow" alignment="CENTER" layoutX="26.0" layoutY="78.0" prefHeight="300.0" prefWidth="248.0" spacing="20.0">
+         <Button fx:id="newGameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showNewGameWindow" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #6169ff;" text="Новая игра" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Segoe UI" size="14.0" />
+            </font>
+         </Button>
+         <Button fx:id="loadButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showLoadGameWindow" prefHeight="34.0" prefWidth="140.0" style="-fx-background-color: #6169ff;" text="Загрузить игру" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <font>
+               <Font name="Segoe UI" size="14.0" />
+            </font>
+         </Button>
+         <Button fx:id="helpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#showHelpWindow" prefHeight="34.0" prefWidth="140.0" style="-fx-background-color: #6169ff;" text="Справка" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Segoe UI" size="14.0" />
+            </font>
+         </Button>
+         <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#exitPressed" prefHeight="34.0" prefWidth="110.0" style="-fx-background-color: #6169ff;" text="Выйти" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Segoe UI" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="12.0" />
+            </VBox.margin>
+         </Button>
+      </VBox>
+      <VBox fx:id="newGameWindow" alignment="CENTER" layoutX="26.0" layoutY="78.0" prefHeight="260.0" prefWidth="248.0" spacing="12.0" visible="false">
+         <Text fill="#7b9cff" stroke="#6169ff" strokeType="INSIDE" strokeWidth="0.1" text="Размер игрового поля" textAlignment="CENTER">
+            <font>
+               <Font name="Segoe UI Black" size="16.0" />
+            </font>
+         </Text>
+         <Pane prefHeight="200.0" prefWidth="200.0">
+            <TextField fx:id="gameScreenX" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                       prefHeight="32.0" prefWidth="100.0" promptText="Строки">
+               <font>
+                  <Font name="Segoe UI" size="14.0"/>
+               </font>
+               <opaqueInsets>
+                  <Insets right="100.0"/>
+               </opaqueInsets>
+            </TextField>
+            <TextField fx:id="gameScreenY" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                       prefHeight="32.0" prefWidth="100.0" promptText="Столбцы">
+               <font>
+                  <Font name="Segoe UI" size="14.0"/>
+               </font>
+            </TextField>
+            <ImageView fitHeight="62.0" fitWidth="62.0" layoutX="172.0" layoutY="20.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <Image url="@../../../background/array.png"/>
+            </ImageView>
+            <Text fx:id="gsXshow" fill="#0033bf" layoutX="131.0" layoutY="57.0" rotate="-90.0" strokeType="OUTSIDE"
+                  strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="62.0">
+               <font>
+                  <Font name="Segoe UI" size="14.0"/>
+               </font>
+            </Text>
+            <Text fx:id="gsYshow" fill="#0033bf" layoutX="172.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="0" textAlignment="CENTER" wrappingWidth="62.0">
+               <font>
+                  <Font name="Segoe UI" size="14.0"/>
+               </font>
+            </Text>
+         </Pane>
+         <Text fill="#7b9cff" stroke="#6169ff" strokeType="INSIDE" strokeWidth="0.1" text="Скорость игры" textAlignment="CENTER">
+            <font>
+               <Font name="Segoe UI Black" size="16.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="4.0" />
+            </VBox.margin>
+         </Text>
+         <Slider fx:id="gameSpeed" majorTickUnit="200.0" max="1000.0" maxHeight="-Infinity" maxWidth="-Infinity" min="50.0" minorTickCount="0" prefHeight="10.0" prefWidth="220.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="50.0" />
+         <CheckBox fx:id="generateStart" mnemonicParsing="false" prefHeight="40.0" prefWidth="368.0" text="Создать начальную &quot;колонию&quot;">
+            <font>
+               <Font name="Segoe UI" size="14.0" />
+            </font>
+            <padding>
+               <Insets top="6.0" />
+            </padding>
+         </CheckBox>
+      </VBox>
+      <VBox fx:id="loadGameWindow" alignment="CENTER" layoutX="46.0" layoutY="98.0" prefHeight="300.0" prefWidth="248.0" spacing="12.0" visible="false" />
+      <VBox fx:id="helpWindow" alignment="CENTER" layoutX="36.0" layoutY="88.0" prefHeight="300.0" prefWidth="248.0" spacing="12.0" visible="false" />
+      <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#startGamePressed" prefHeight="34.0" prefWidth="120.0" style="-fx-background-color: #6169ff;" text="Начать игру" textAlignment="CENTER" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Button>
+      <cursor>
+         <Cursor fx:constant="DEFAULT" />
+      </cursor>
+   </Pane>
+</AnchorPane>
