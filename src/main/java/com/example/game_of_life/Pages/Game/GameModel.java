@@ -9,6 +9,7 @@ public class GameModel {
     private int gridX;
     private int gridY;
     private int gameSpeed;
+    private int cellsAlive = 0;
 
     private boolean isGameStopped = true;
     private boolean generateStartCivilization;
@@ -20,14 +21,6 @@ public class GameModel {
     private AnimationTimer animationTimer;
     private GameObserver gameObserver;
 
-    public void setGameObserver(GameObserver gameObserver) {
-        this.gameObserver = gameObserver;
-    }
-
-    private void notifyGameObserver() {
-        gameObserver.onTick();
-    }
-
     public GameModel() {
         animationTimer = new AnimationTimer() {
             private long lastUpdate = 0;
@@ -36,11 +29,30 @@ public class GameModel {
             public void handle(long now) {
                 if ((now - lastUpdate) >= gameSpeed * 1_000_000L) {
                     tick();
-
                     lastUpdate = now;
                 }
             }
         };
+    }
+
+    public void increaseSpeed() {
+        if (gameSpeed < 1000) {
+            gameSpeed += 50;
+        }
+    }
+
+    public void decreaseSpeed() {
+        if (gameSpeed > 50) {
+            gameSpeed -= 50;
+        }
+    }
+
+    public void setGameObserver(GameObserver gameObserver) {
+        this.gameObserver = gameObserver;
+    }
+
+    private void notifyGameObserver() {
+        gameObserver.onTick();
     }
 
     public void startGame() {
@@ -59,7 +71,9 @@ public class GameModel {
         if (generateStartCivilization) {
             for (int i = 0; i < gridX; i++) {
                 for (int j = 0; j < gridY; j++) {
-                    grid[i][j] = (byte) random.nextInt(2);
+                    int num = grid[i][j] = (byte) random.nextInt(2);
+                    if (num == 1)
+                        cellsAlive++;
                 }
             }
         }
@@ -67,17 +81,20 @@ public class GameModel {
 
     public void tick() {
         byte[][] next = new byte[gridX][gridY];
-
+        cellsAlive = 0;
         for (int i = 0; i < gridX; i++) {
             for (int j = 0; j < gridY; j++) {
                 int neighbors = countAliveNeighbors(i, j);
 
                 if (neighbors == 3) {
+                    cellsAlive++;
                     next[i][j] = 1;
-                }else if (neighbors < 2 || neighbors > 3) {
+                } else if (neighbors < 2 || neighbors > 3) {
                     next[i][j] = 0;
-                }else {
-                    next[i][j] = grid[i][j];
+                } else {
+                    int num = next[i][j] = grid[i][j];
+                    if (num == 1)
+                        cellsAlive++;
                 }
             }
         }
@@ -149,6 +166,9 @@ public class GameModel {
     }
 
     public void setPointsInGrid(byte[][] grid, int x, int y) {
+        if (grid[x][y] == 0)
+            cellsAlive++;
+
         grid[x][y] = 1;
     }
 
@@ -156,4 +176,7 @@ public class GameModel {
         this.grid = grid;
     }
 
+    public int getCellsAlive() {
+        return cellsAlive;
+    }
 }

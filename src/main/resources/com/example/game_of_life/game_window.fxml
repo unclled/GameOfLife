@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
@@ -9,59 +11,108 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<Pane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_of_life.Pages.Game.GameController">
-   <children>
-      <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0">
-         <children>
-            <HBox alignment="CENTER">
-               <children>
-                  <ScrollPane style="-fx-background-color: transparent;">
-                     <content>
-                        <Canvas fx:id="gameField" height="702.0" width="1200.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <HBox alignment="CENTER" layoutY="694.0" prefHeight="100.0" prefWidth="1200.0">
-         <children>
-            <Button fx:id="play" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../background/play.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="pause" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../background/pause.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="generateNext" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../background/forward.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Button>
-         </children>
+<Pane prefHeight="800.0" prefWidth="1200.0" styleClass="background-color" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_of_life.Pages.Game.GameController">
+   <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0">
+      <HBox alignment="CENTER">
+         <ScrollPane style="-fx-background-color: transparent;" stylesheets="@../../../style.css">
+            <styleClass>
+               <String fx:value="scroll-bar" />
+               <String fx:value="corner" />
+               <String fx:value="thumb" />
+            </styleClass>
+            <Canvas fx:id="gameField" height="700.0" width="1200.0" />
+         </ScrollPane>
       </HBox>
-   </children>
+   </VBox>
+   <HBox alignment="CENTER" layoutY="694.0" prefHeight="100.0" prefWidth="1200.0">
+      <VBox alignment="CENTER_LEFT">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
+      <Button fx:id="play" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/play.png" />
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="pause" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/pause.png" />
+            </ImageView>
+         </graphic>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </Button>
+      <Button fx:id="generateNext" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/forward.png" />
+            </ImageView>
+         </graphic>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </Button>
+      <Button fx:id="decreaseSpeed" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/decrease.png" />
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <HBox.margin>
+            <Insets left="50.0" right="5.0" />
+         </HBox.margin>
+      </Button>
+      <HBox alignment="CENTER" prefWidth="70.0">
+         <Text fx:id="showSpeed" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
+            <font>
+               <Font name="Segoe UI Black" size="18.0" />
+            </font>
+         </Text>
+         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="мс">
+            <font>
+               <Font name="Segoe UI Black" size="12.0" />
+            </font>
+            <HBox.margin>
+               <Insets top="5.0" />
+            </HBox.margin>
+         </Text>
+      </HBox>
+      <Button fx:id="increaseSpeed" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/increase.png" />
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <HBox.margin>
+            <Insets left="5.0" />
+         </HBox.margin>
+      </Button>
+   </HBox>
+   <Text fx:id="fieldSize" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Размер поля: " x="10.0" y="790.0">
+      <font>
+         <Font name="Segoe UI Black" size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="cellsAlive" fill="WHITE" layoutX="-80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество живых клеток:" textAlignment="RIGHT" wrappingWidth="355.2578125" x="915.0" y="790.0">
+      <font>
+         <Font name="Segoe UI Black" size="16.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="DEFAULT" />
+      </cursor>
+   </Text>
 </Pane>

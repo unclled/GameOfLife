@@ -9,9 +9,20 @@ public class GameController extends GameView implements GameObserver {
     public Button play;
     public Button pause;
     public Button generateNext;
+    public Button increaseSpeed;
+    public Button decreaseSpeed;
     //--------------------------//
 
     public GameController() {}
+
+    private void setButtonsOnAction() {
+        play.setOnAction(l -> play());
+        pause.setOnAction(l -> pause());
+        generateNext.setOnAction(l -> generateNext());
+        gameField.setOnMouseClicked(event -> setPointsInGrid(event.getX(), event.getY()));
+        increaseSpeed.setOnAction(event -> increaseSpeed());
+        decreaseSpeed.setOnAction(event -> decreaseSpeed());
+    }
 
     public void setData(int gridX, int gridY, int gameSpeed, boolean generateStartCivilization) {
         gameModel.setGridX(gridX);
@@ -25,6 +36,10 @@ public class GameController extends GameView implements GameObserver {
         initializeView(gameModel.getGridX(), gameModel.getGridY());
         gameModel.initialize();
         setButtonsOnAction();
+
+        showAmountOfAliveCells(gameModel.getCellsAlive());
+        showCurrentGameSpeed(gameModel.getGameSpeed());
+
         draw(gameModel.getGrid());
     }
 
@@ -56,18 +71,23 @@ public class GameController extends GameView implements GameObserver {
         int y = (int) (eventY / cellSizeY);
 
         gameModel.setPointsInGrid(gameModel.getGrid(), x, y);
+        showAmountOfAliveCells(gameModel.getCellsAlive());
         draw(gameModel.getGrid());
     }
 
-    private void setButtonsOnAction() {
-        play.setOnAction(l -> play());
-        pause.setOnAction(l -> pause());
-        generateNext.setOnAction(l -> generateNext());
-        gameField.setOnMouseClicked(event -> setPointsInGrid(event.getX(), event.getY()));
+    public void increaseSpeed() {
+        gameModel.increaseSpeed();
+        showCurrentGameSpeed(gameModel.getGameSpeed());
+    }
+
+    public void decreaseSpeed() {
+        gameModel.decreaseSpeed();
+        showCurrentGameSpeed(gameModel.getGameSpeed());
     }
 
     @Override
     public void onTick() {
+        showAmountOfAliveCells(gameModel.getCellsAlive());
         draw(gameModel.getGrid());
     }
 }
