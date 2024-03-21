@@ -30,10 +30,9 @@
         public Button helpButton;
         public Button exitButton;
         public Button startGame;
+        public Button goBack;
 
         public CheckBox generateStart;
-
-        private int gridX, gridY;
 
         @Override
         public void start(Stage stage) throws Exception {
@@ -56,6 +55,7 @@
             helpWindow = new VBox();
             startGame = new Button();
             exitButton = new Button();
+            goBack = new Button();
         }
 
         public void showNewGameWindow() {
@@ -101,6 +101,7 @@
                     (int) gameSpeed.getValue(),
                     generateStart.isSelected());
             gameController.initialize();
+            primaryStage.setOnCloseRequest(event -> gameController.onClose());
             primaryStage.show();
         }
 

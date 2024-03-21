@@ -11,6 +11,8 @@ public class GameController extends GameView implements GameObserver {
     public Button generateNext;
     public Button increaseSpeed;
     public Button decreaseSpeed;
+    public Button zoomOut;
+    public Button zoomIn;
     //--------------------------//
 
     public GameController() {}
@@ -22,6 +24,8 @@ public class GameController extends GameView implements GameObserver {
         gameField.setOnMouseClicked(event -> setPointsInGrid(event.getX(), event.getY()));
         increaseSpeed.setOnAction(event -> increaseSpeed());
         decreaseSpeed.setOnAction(event -> decreaseSpeed());
+        zoomOut.setOnAction(event -> zoomOut());
+        zoomIn.setOnAction(event -> zoomIn());
     }
 
     public void setData(int gridX, int gridY, int gameSpeed, boolean generateStartCivilization) {
@@ -85,9 +89,23 @@ public class GameController extends GameView implements GameObserver {
         showCurrentGameSpeed(gameModel.getGameSpeed());
     }
 
+    private void zoomIn() {
+        doZoomIn();
+    }
+
+    public void zoomOut() {
+        doZoomOut();
+    }
+
     @Override
     public void onTick() {
         showAmountOfAliveCells(gameModel.getCellsAlive());
+        showGenerationsCounter(gameModel.getGenerationsCount());
         draw(gameModel.getGrid());
+    }
+
+    public void onClose() {
+        gameModel.stopAnimator();
+        gameModel.setGrid(null);
     }
 }

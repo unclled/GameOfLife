@@ -17,7 +17,7 @@
 <Pane prefHeight="800.0" prefWidth="1200.0" styleClass="background-color" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_of_life.Pages.Game.GameController">
    <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0">
       <HBox alignment="CENTER">
-         <ScrollPane style="-fx-background-color: transparent;" stylesheets="@../../../style.css">
+         <ScrollPane fx:id="scrollPane" style="-fx-background-color: transparent;" stylesheets="@../../../style.css">
             <styleClass>
                <String fx:value="scroll-bar" />
                <String fx:value="corner" />
@@ -101,6 +101,36 @@
             <Insets left="5.0" />
          </HBox.margin>
       </Button>
+      <Button fx:id="zoomOut" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../background/zoom_out.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <HBox.margin>
+            <Insets left="50.0" />
+         </HBox.margin>
+      </Button>
+      <Button fx:id="zoomIn" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../background/zoom_in.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </Button>
    </HBox>
    <Text fx:id="fieldSize" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Размер поля: " x="10.0" y="790.0">
       <font>
@@ -108,6 +138,14 @@
       </font>
    </Text>
    <Text fx:id="cellsAlive" fill="WHITE" layoutX="-80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество живых клеток:" textAlignment="RIGHT" wrappingWidth="355.2578125" x="915.0" y="790.0">
+      <font>
+         <Font name="Segoe UI Black" size="16.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="DEFAULT" />
+      </cursor>
+   </Text>
+   <Text fx:id="generationsCounter" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Число генераций: 0" x="500.0" y="790.0">
       <font>
          <Font name="Segoe UI Black" size="16.0" />
       </font>

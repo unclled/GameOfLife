@@ -1,11 +1,14 @@
 package com.example.game_of_life.Pages.Game;
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 
 public class GameView {
     @FXML public Canvas gameField;
@@ -13,6 +16,8 @@ public class GameView {
     @FXML public Text showSpeed;
     @FXML public Text fieldSize;
     @FXML public Text cellsAlive;
+    @FXML public ScrollPane scrollPane;
+    @FXML public Text generationsCounter;
 
     public void initializeView(int gridX, int gridY) {
         graphics = gameField.getGraphicsContext2D();
@@ -45,6 +50,23 @@ public class GameView {
 
     public void showAmountOfAliveCells(int currentCellsAlive) {
         cellsAlive.setText("Количество живых клеток: " + currentCellsAlive);
+    }
+
+    public void showGenerationsCounter(int generationsCount) {
+        generationsCounter.setText("Количество генераций: " + generationsCount);
+    }
+
+    public void doZoomOut() {
+        Group contentGroup = new Group(gameField);
+        scrollPane.setContent(contentGroup);
+
+        Scale scale = new Scale(0.8, 0.8);
+        gameField.getTransforms().add(scale);
+    }
+
+    public void doZoomIn() {
+        Scale scale = new Scale(1.2, 1.2);
+        gameField.getTransforms().add(scale);
     }
 
     public void showCurrentGameSpeed(int gameSpeed) {

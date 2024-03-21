@@ -64,35 +64,30 @@
             </font>
          </Text>
          <Pane prefHeight="200.0" prefWidth="200.0">
-            <TextField fx:id="gameScreenX" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                       prefHeight="32.0" prefWidth="100.0" promptText="Строки">
+            <TextField fx:id="gameScreenX" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="100.0" promptText="Строки">
                <font>
-                  <Font name="Segoe UI" size="14.0"/>
+                  <Font name="Segoe UI" size="14.0" />
                </font>
                <opaqueInsets>
-                  <Insets right="100.0"/>
+                  <Insets right="100.0" />
                </opaqueInsets>
             </TextField>
-            <TextField fx:id="gameScreenY" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                       prefHeight="32.0" prefWidth="100.0" promptText="Столбцы">
+            <TextField fx:id="gameScreenY" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="100.0" promptText="Столбцы">
                <font>
-                  <Font name="Segoe UI" size="14.0"/>
+                  <Font name="Segoe UI" size="14.0" />
                </font>
             </TextField>
-            <ImageView fitHeight="62.0" fitWidth="62.0" layoutX="172.0" layoutY="20.0" pickOnBounds="true"
-                       preserveRatio="true">
-               <Image url="@../../../background/array.png"/>
+            <ImageView fitHeight="62.0" fitWidth="62.0" layoutX="172.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/array.png" />
             </ImageView>
-            <Text fx:id="gsXshow" fill="#0033bf" layoutX="131.0" layoutY="57.0" rotate="-90.0" strokeType="OUTSIDE"
-                  strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="62.0">
+            <Text fx:id="gsXshow" fill="#0033bf" layoutX="131.0" layoutY="57.0" rotate="-90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="62.0">
                <font>
-                  <Font name="Segoe UI" size="14.0"/>
+                  <Font name="Segoe UI" size="14.0" />
                </font>
             </Text>
-            <Text fx:id="gsYshow" fill="#0033bf" layoutX="172.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="0" textAlignment="CENTER" wrappingWidth="62.0">
+            <Text fx:id="gsYshow" fill="#0033bf" layoutX="172.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="62.0">
                <font>
-                  <Font name="Segoe UI" size="14.0"/>
+                  <Font name="Segoe UI" size="14.0" />
                </font>
             </Text>
          </Pane>
@@ -120,6 +115,18 @@
          <font>
             <Font name="Segoe UI" size="14.0" />
          </font>
+      </Button>
+      <Button fx:id="goBack" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#setToDefault" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../background/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
       <cursor>
          <Cursor fx:constant="DEFAULT" />

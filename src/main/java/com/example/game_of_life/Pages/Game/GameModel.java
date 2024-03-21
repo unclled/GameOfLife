@@ -10,6 +10,7 @@ public class GameModel {
     private int gridY;
     private int gameSpeed;
     private int cellsAlive = 0;
+    private int generationsCount = 0;
 
     private boolean isGameStopped = true;
     private boolean generateStartCivilization;
@@ -80,6 +81,7 @@ public class GameModel {
     }
 
     public void tick() {
+        generationsCount++;
         byte[][] next = new byte[gridX][gridY];
         cellsAlive = 0;
         for (int i = 0; i < gridX; i++) {
@@ -120,6 +122,9 @@ public class GameModel {
         return sum;
     }
 
+    public void stopAnimator() {
+        animationTimer.stop();
+    }
 
     public int getGridX() {
         return gridX;
@@ -178,5 +183,9 @@ public class GameModel {
 
     public int getCellsAlive() {
         return cellsAlive;
+    }
+
+    public int getGenerationsCount() {
+        return generationsCount;
     }
 }
