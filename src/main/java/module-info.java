@@ -10,6 +10,7 @@ module com.example.game_of_life {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.prefs;
 
     opens com.example.game_of_life to javafx.fxml;
     exports com.example.game_of_life.Pages.MainMenu;

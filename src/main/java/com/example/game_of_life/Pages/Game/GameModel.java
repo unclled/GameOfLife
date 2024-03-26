@@ -103,8 +103,8 @@ public class GameModel {
         grid = next;
         notifyGameObserver();
     }
-
-    private int countAliveNeighbors(int i, int j) {
+    /* С ГРАНИЦАМИ */
+/*    private int countAliveNeighbors(int i, int j) {
         int sum = 0;
         int iStart = i == 0 ? 0 : -1;
         int iEndInclusive = i == grid.length - 1 ? 0 : 1;
@@ -119,6 +119,20 @@ public class GameModel {
 
         sum -= grid[i][j];
 
+        return sum;
+    }*/
+
+    /* ЦИКЛИЧЕСКАЯ */
+    private int countAliveNeighbors(int i, int j) {
+        int sum = 0;
+        for (int k = -1; k <= 1; k++) {
+            for (int l = -1; l <= 1; l++) {
+                int x = (i + k + gridX) % gridX; // Обработка цикличности по X
+                int y = (j + l + gridY) % gridY; // Обработка цикличности по Y
+                sum += grid[x][y];
+            }
+        }
+        sum -= grid[i][j];
         return sum;
     }
 

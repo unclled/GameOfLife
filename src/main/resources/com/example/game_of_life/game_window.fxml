@@ -17,7 +17,7 @@
 <Pane prefHeight="800.0" prefWidth="1200.0" styleClass="background-color" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_of_life.Pages.Game.GameController">
    <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0">
       <HBox alignment="CENTER">
-         <ScrollPane fx:id="scrollPane" style="-fx-background-color: transparent;" stylesheets="@../../../style.css">
+         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent;" stylesheets="@../../../style.css">
             <styleClass>
                <String fx:value="scroll-bar" />
                <String fx:value="corner" />
