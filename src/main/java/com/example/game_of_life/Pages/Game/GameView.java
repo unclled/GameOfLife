@@ -20,24 +20,26 @@ public class GameView {
     @FXML public Text cellsAlive;
     @FXML public ScrollPane scrollPane;
     @FXML public Text generationsCounter;
-    private Color liveCellColor;
-    private Color deadCellColor;
+    protected Color liveCellColor;
+    protected Color deadCellColor;
+    protected byte cellSize;
+    private byte outline;
 
     public void initializeView(int gridX, int gridY) {
         graphics = gameField.getGraphicsContext2D();
-
-        gameField.setHeight(gridY * 20);
-        gameField.setWidth(gridX * 20);
-        fieldSize.setText("Размер поля: " + gridX + "x" + gridY);
-
         Preferences prefs = Preferences.userRoot();
         liveCellColor = Color.valueOf(prefs.get("LIVECELLCOLOR", "white"));
         deadCellColor = Color.valueOf(prefs.get("DEADCELLCOLOR", "black"));
+        cellSize = Byte.parseByte(prefs.get("CELLSIZE", "20"));
+        outline = (byte) (cellSize < 10 ? 1 : 2);
+        gameField.setHeight(gridY * cellSize);
+        gameField.setWidth(gridX * cellSize);
+        fieldSize.setText("Размер поля: " + gridX + "x" + gridY);
 
         for (int i = 0; i < gridX; i++) {
             for (int j = 0; j < gridY; j++) {
                 graphics.setFill(deadCellColor);
-                graphics.fillRect(i * 20, j * 20, 20, 20);
+                graphics.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
             }
         }
     }
@@ -63,15 +65,19 @@ public class GameView {
 
                 if (grid[x][y] == 1) {
                     graphics.setFill(liveCellColor);
-                    graphics.fillRect((x * 20) + 1, (y * 20) + 1, 20 - 2, 20 - 2);
+                    graphics.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
                 } else {
                     graphics.setFill(deadCellColor);
-                    graphics.fillRect((x * 20) + 1, (y * 20) + 1, 20 - 2, 20 - 2);
+                    graphics.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
                 }
             }
         }
     }
 
+    public void drawPoints(int x, int y, Color color) {
+        graphics.setFill(color);
+        graphics.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
+    }
 
     public void showAmountOfAliveCells(int currentCellsAlive) {
         cellsAlive.setText("Количество живых клеток: " + currentCellsAlive);

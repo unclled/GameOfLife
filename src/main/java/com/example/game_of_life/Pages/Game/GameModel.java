@@ -1,8 +1,13 @@
 package com.example.game_of_life.Pages.Game;
 
+import com.example.game_of_life.Pages.MersenneTwister;
 import javafx.animation.AnimationTimer;
 
+import java.io.*;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
+
 
 public class GameModel {
 
@@ -21,6 +26,9 @@ public class GameModel {
 
     private AnimationTimer animationTimer;
     private GameObserver gameObserver;
+
+    private int[] aliveRules;
+    private int[] deadRules;
 
     public GameModel() {
         animationTimer = new AnimationTimer() {
@@ -69,12 +77,14 @@ public class GameModel {
     public void initialize() {
         grid = new byte[gridX][gridY];
 
+        MersenneTwister mersenneTwister = new MersenneTwister();
         if (generateStartCivilization) {
             for (int i = 0; i < gridX; i++) {
                 for (int j = 0; j < gridY; j++) {
-                    int num = grid[i][j] = (byte) random.nextInt(2);
-                    if (num == 1)
+                    byte num = grid[i][j] = (byte) (mersenneTwister.nextByte() & 1);
+                    if (num == 1) {
                         cellsAlive++;
+                    }
                 }
             }
         }
@@ -83,46 +93,32 @@ public class GameModel {
     public void tick() {
         generationsCount++;
         byte[][] next = new byte[gridX][gridY];
-        cellsAlive = 0;
+        int newCellsAlive = 0;
+
         for (int i = 0; i < gridX; i++) {
             for (int j = 0; j < gridY; j++) {
                 int neighbors = countAliveNeighbors(i, j);
 
-                if (neighbors == 3) {
-                    cellsAlive++;
-                    next[i][j] = 1;
-                } else if (neighbors < 2 || neighbors > 3) {
-                    next[i][j] = 0;
+                if (grid[i][j] == 1) {
+                    if (Arrays.binarySearch(aliveRules, neighbors) >= 0) {
+                        next[i][j] = 1;
+                        newCellsAlive++;
+                    }
                 } else {
-                    int num = next[i][j] = grid[i][j];
-                    if (num == 1)
-                        cellsAlive++;
+                    if (Arrays.binarySearch(deadRules, neighbors) >= 0) {
+                        next[i][j] = 1;
+                        newCellsAlive++;
+                    }
                 }
             }
         }
+
         grid = next;
+        cellsAlive = newCellsAlive;
+
         notifyGameObserver();
     }
-    /* С ГРАНИЦАМИ */
-/*    private int countAliveNeighbors(int i, int j) {
-        int sum = 0;
-        int iStart = i == 0 ? 0 : -1;
-        int iEndInclusive = i == grid.length - 1 ? 0 : 1;
-        int jStart = j == 0 ? 0 : -1;
-        int jEndInclusive = j == grid[0].length - 1 ? 0 : 1;
 
-        for (int k = iStart; k <= iEndInclusive; k++) {
-            for (int l = jStart; l <= jEndInclusive; l++) {
-                sum += grid[i + k][l + j];
-            }
-        }
-
-        sum -= grid[i][j];
-
-        return sum;
-    }*/
-
-    /* ЦИКЛИЧЕСКАЯ */
     private int countAliveNeighbors(int i, int j) {
         int sum = 0;
         for (int k = -1; k <= 1; k++) {
@@ -134,6 +130,35 @@ public class GameModel {
         }
         sum -= grid[i][j];
         return sum;
+    }
+
+    public void readPattern(int x, int y) throws IOException {
+        int saveX = x;
+        int saveY = y;
+        String filePath = "C:\\Projects\\GameOfLife\\src\\main\\java\\com\\example\\game_of_life\\Patterns\\68P9.txt";
+        try {
+            File file = new File(filePath);
+            FileInputStream fis = new FileInputStream(file);
+            Scanner scanner = new Scanner(fis);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                x = saveX;
+                for (int i = 0; i < line.length(); i++) {
+                    char c = line.charAt(i);
+                    grid[x][y] = (byte) (c - '0');
+                    x++;
+                }
+                y++;
+            }
+
+            scanner.close();
+            fis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void stopAnimator() {
@@ -168,14 +193,6 @@ public class GameModel {
         return isGameStopped;
     }
 
-    public void setGameStopped(boolean gameStopped) {
-        isGameStopped = gameStopped;
-    }
-
-    public boolean isGenerateStartCivilization() {
-        return generateStartCivilization;
-    }
-
     public void setGenerateStartCivilization(boolean generateStartCivilization) {
         this.generateStartCivilization = generateStartCivilization;
     }
@@ -184,11 +201,15 @@ public class GameModel {
         return grid;
     }
 
-    public void setPointsInGrid(byte[][] grid, int x, int y) {
-        if (grid[x][y] == 0)
+    public void setPointsInGrid(byte[][] grid, int x, int y, int action) {
+        if (grid[x][y] == 0 && action == 1) {
             cellsAlive++;
-
-        grid[x][y] = 1;
+            grid[x][y] = 1;
+        }
+        else if (grid[x][y] == 1 && action == 0) {
+            cellsAlive--;
+            grid[x][y] = 0;
+        }
     }
 
     public void setGrid(byte[][] grid) {
@@ -201,5 +222,13 @@ public class GameModel {
 
     public int getGenerationsCount() {
         return generationsCount;
+    }
+
+    public void setAliveRules(int[] aliveRules) {
+        this.aliveRules = aliveRules;
+    }
+
+    public void setDeadRules(int[] deadRules) {
+        this.deadRules = deadRules;
     }
 }

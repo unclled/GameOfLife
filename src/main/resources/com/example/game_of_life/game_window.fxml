@@ -28,99 +28,117 @@
       </HBox>
    </VBox>
    <HBox alignment="CENTER" layoutY="694.0" prefHeight="100.0" prefWidth="1200.0">
-      <VBox alignment="CENTER_LEFT">
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
-      </VBox>
-      <Button fx:id="play" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../background/play.png" />
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="pause" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../background/pause.png" />
-            </ImageView>
-         </graphic>
-         <HBox.margin>
-            <Insets left="20.0" />
-         </HBox.margin>
-      </Button>
-      <Button fx:id="generateNext" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../background/forward.png" />
-            </ImageView>
-         </graphic>
-         <HBox.margin>
-            <Insets left="20.0" />
-         </HBox.margin>
-      </Button>
-      <Button fx:id="decreaseSpeed" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../background/decrease.png" />
-            </ImageView>
-         </graphic>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <HBox.margin>
-            <Insets left="50.0" right="5.0" />
-         </HBox.margin>
-      </Button>
-      <HBox alignment="CENTER" prefWidth="70.0">
-         <Text fx:id="showSpeed" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
-            <font>
-               <Font name="Segoe UI Black" size="18.0" />
-            </font>
-         </Text>
-         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="мс">
-            <font>
-               <Font name="Segoe UI Black" size="12.0" />
-            </font>
-            <HBox.margin>
-               <Insets top="5.0" />
-            </HBox.margin>
-         </Text>
+      <HBox alignment="CENTER">
+         <children>
+            <Button fx:id="decreaseSpeed" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../../../background/decrease.png" />
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <HBox alignment="CENTER" prefWidth="70.0">
+               <Text fx:id="showSpeed" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
+                  <font>
+                     <Font name="Segoe UI Black" size="18.0" />
+                  </font>
+               </Text>
+               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="мс">
+                  <font>
+                     <Font name="Segoe UI Black" size="12.0" />
+                  </font>
+                  <HBox.margin>
+                     <Insets top="5.0" />
+                  </HBox.margin>
+               </Text>
+            </HBox>
+            <Button fx:id="increaseSpeed" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../../../background/increase.png" />
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+         </children>
       </HBox>
-      <Button fx:id="increaseSpeed" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../background/increase.png" />
-            </ImageView>
-         </graphic>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="168.0">
+         <children>
+            <Button fx:id="play" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../../../background/play.png" />
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="pause" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../../../background/pause.png" />
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="generateNext" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../../../background/forward.png" />
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
          <HBox.margin>
-            <Insets left="5.0" />
+            <Insets left="30.0" right="20.0" />
          </HBox.margin>
-      </Button>
-      <Button fx:id="zoomOut" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <Button fx:id="zoomOut" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../../../background/zoom_out.png" />
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="zoomIn" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../../../background/zoom_in.png" />
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </HBox>
+      <Button fx:id="patternSelector" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../background/zoom_out.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <HBox.margin>
-            <Insets left="50.0" />
-         </HBox.margin>
-      </Button>
-      <Button fx:id="zoomIn" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../background/zoom_in.png" />
+                  <Image url="@../../../background/patterns.png" />
                </image>
             </ImageView>
          </graphic>
@@ -145,7 +163,7 @@
          <Cursor fx:constant="DEFAULT" />
       </cursor>
    </Text>
-   <Text fx:id="generationsCounter" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Число генераций: 0" x="500.0" y="790.0">
+   <Text fx:id="generationsCounter" fill="WHITE" layoutX="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Число генераций: 0" x="500.0" y="790.0">
       <font>
          <Font name="Segoe UI Black" size="16.0" />
       </font>

@@ -14,7 +14,11 @@
     import javafx.scene.text.Text;
     import javafx.stage.Stage;
 
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.List;
     import java.util.prefs.Preferences;
+    import java.util.stream.Collectors;
 
     public class MainMenuController extends Application {
         public TextField gameScreenX;
@@ -23,6 +27,7 @@
         public Text gsYshow;
 
         public Slider gameSpeed;
+        public Slider cellSizeSlider;
         public VBox startWindow;
         public VBox newGameWindow;
         public VBox loadGameWindow;
@@ -43,6 +48,15 @@
         public Group liveGroup;
         public Group deadGroup;
 
+        public Button changeRulesButton;
+        public VBox rulesWindow;
+        public Group aliveRulesSet;
+        public Group deadRulesSet;
+        public Button confirmRules;
+
+        List<Integer> aliveRuleSet = new ArrayList<>();
+        List<Integer> deadRuleSet = new ArrayList<>();
+
         @Override
         public void start(Stage stage) throws Exception {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/game_of_life/main_menu_window.fxml"));
@@ -61,13 +75,19 @@
             newGameWindow = (VBox) scene.lookup("#newGameWindow");
             loadGameWindow = (VBox) scene.lookup("#loadGameWindow");
             helpWindow = (VBox) scene.lookup("#helpWindow");
+            settingsWindow = (VBox) scene.lookup("#settingsWindow");
+            rulesWindow = (VBox) scene.lookup("#rulesWindow");
+
             startGame = (Button) scene.lookup("#startGame");
             goBack = (Button) scene.lookup("#goBack");
+
             liveCellColor = (ColorPicker) scene.lookup("#liveCellColor");
             deadCellColor = (ColorPicker) scene.lookup("#deadCellColor");
+
             liveGroup = (Group) scene.lookup("#liveGroup");
             deadGroup = (Group) scene.lookup("#deadGroup");
-            settingsWindow = (VBox) scene.lookup("#settingsWindow");
+            aliveRulesSet = (Group) scene.lookup("#aliveRulesSet");
+            deadRulesSet = (Group) scene.lookup("#deadRulesSet");
         }
 
         public void showNewGameWindow() {
@@ -101,6 +121,7 @@
             startGame.setVisible(false);
             goBack.setVisible(false);
             settingsWindow.setVisible(false);
+            rulesWindow.setVisible(false);
         }
 
         private void resetData() {
@@ -117,23 +138,27 @@
             startWindow.setVisible(false);
             settingsWindow.setVisible(true);
 
-            Preferences colorsAndRules = Preferences.userRoot();
-            liveCellColor.setValue(Color.valueOf(colorsAndRules.get("LIVECELLCOLOR", "white")));
-            deadCellColor.setValue(Color.valueOf(colorsAndRules.get("DEADCELLCOLOR", "black")));
+            Preferences prefs = Preferences.userRoot();
+            liveCellColor.setValue(Color.valueOf(prefs.get("LIVECELLCOLOR", "white")));
+            deadCellColor.setValue(Color.valueOf(prefs.get("DEADCELLCOLOR", "black")));
+            cellSizeSlider.setValue(Integer.parseInt(prefs.get("CELLSIZE", "20")));
             liveExampleColor(liveCellColor.getValue());
             deadExampleColor(deadCellColor.getValue());
 
             liveCellColor.setOnAction((ActionEvent e) -> {
                 Color color = liveCellColor.getValue();
                 liveExampleColor(color);
-                colorsAndRules.put("LIVECELLCOLOR", color.toString());
+                prefs.put("LIVECELLCOLOR", color.toString());
             });
 
             deadCellColor.setOnAction((ActionEvent e) -> {
                 Color color = deadCellColor.getValue();
                 deadExampleColor(color);
-                colorsAndRules.put("DEADCELLCOLOR", color.toString());
+                prefs.put("DEADCELLCOLOR", color.toString());
             });
+
+            cellSizeSlider.valueProperty().addListener((observableValue, number, t1) ->
+                    prefs.put("CELLSIZE", String.valueOf((int) cellSizeSlider.getValue())));
         }
 
         private void liveExampleColor(Color live) {
@@ -162,11 +187,14 @@
             primaryStage.setResizable(false);
             GameController gameController = fxmlLoader.getController();
 
+            getDefaultRules();
             gameController.setData(
                     Integer.parseInt(gameScreenX.getText()),
                     Integer.parseInt(gameScreenY.getText()),
                     (int) gameSpeed.getValue(),
-                    generateStart.isSelected());
+                    generateStart.isSelected(),
+                    aliveRuleSet,
+                    deadRuleSet);
             gameController.initialize();
             primaryStage.setOnCloseRequest(event -> gameController.onClose());
             primaryStage.show();
@@ -175,5 +203,85 @@
         public void exitPressed() {
             System.exit(0);
         }
-    }
 
+        private void getDefaultRules() {
+            Preferences prefs = Preferences.userRoot();
+            aliveRuleSet = Arrays.stream(prefs.get("ALIVERULESET", "2 3").split(" "))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+
+            deadRuleSet = Arrays.stream(prefs.get("DEADRULESET", "3").split(" "))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+        }
+
+        public void showRulesWindow() {
+            getDefaultRules();
+
+            final int[] i = {0};
+
+            aliveRulesSet.getChildren().forEach(node -> {
+                if (node instanceof CheckBox&& i[0] < aliveRuleSet.size()) {
+                    if (node.getId().equals("alive" + aliveRuleSet.get(i[0]).toString())) {
+                        ((CheckBox) node).setSelected(true);
+                        i[0]++;
+                    }
+                }
+            });
+
+            i[0] = 0;
+            deadRulesSet.getChildren().forEach(node -> {
+                if (node instanceof CheckBox && i[0] < deadRuleSet.size()) {
+                    if (node.getId().equals("dead" + deadRuleSet.get(i[0]).toString())) {
+                        ((CheckBox) node).setSelected(true);
+                        i[0]++;
+                    }
+                }
+            });
+
+            rulesWindow.setVisible(true);
+            settingsWindow.setDisable(true);
+            goBack.setDisable(true);
+        }
+
+        public void saveRules() {
+            Preferences prefs = Preferences.userRoot();
+            aliveRuleSet.clear();
+            deadRuleSet.clear();
+            final int[] i = {0};
+
+            aliveRulesSet.getChildren().forEach(node -> {
+                if (node instanceof CheckBox) {
+                    if (((CheckBox) node).isSelected()) {
+                        aliveRuleSet.add(i[0]);
+                    }
+                    i[0]++;
+                }
+            });
+
+            i[0] = 0;
+            deadRulesSet.getChildren().forEach(node -> {
+                if (node instanceof CheckBox) {
+                    if (((CheckBox) node).isSelected()) {
+                        deadRuleSet.add(i[0]);
+                    }
+                    i[0]++;
+                }
+            });
+            String aliveRuleSetStr = aliveRuleSet.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(" "));
+            prefs.put("ALIVERULESET", aliveRuleSetStr);
+
+            String deadRuleSetStr = deadRuleSet.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(" "));
+            prefs.put("DEADRULESET", deadRuleSetStr);
+
+
+
+            rulesWindow.setVisible(false);
+            settingsWindow.setDisable(false);
+            goBack.setDisable(false);
+        }
+    }
