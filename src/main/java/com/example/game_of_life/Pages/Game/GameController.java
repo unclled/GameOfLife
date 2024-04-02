@@ -1,9 +1,12 @@
 package com.example.game_of_life.Pages.Game;
 
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.util.List;
 
 public class GameController extends GameView implements GameObserver {
@@ -17,6 +20,8 @@ public class GameController extends GameView implements GameObserver {
     public Button decreaseSpeed;
     public Button zoomOut;
     public Button zoomIn;
+    public Button patternSelector;
+    public Button drawingMode;
     //--------------------------//
 
     public GameController() {}
@@ -27,10 +32,18 @@ public class GameController extends GameView implements GameObserver {
         generateNext.setOnAction(l -> generateNext());
         gameField.setOnMouseClicked(event -> setPointsInGrid(event.getX(), event.getY(), event));
         gameField.setOnMouseDragged(event -> setPointsInGrid(event.getX(), event.getY(), event));
+        patternSelector.setOnMouseClicked(event -> showPatternsList(event.getX(), event.getY()));
         increaseSpeed.setOnAction(event -> increaseSpeed());
         decreaseSpeed.setOnAction(event -> decreaseSpeed());
         zoomOut.setOnAction(event -> zoomOut());
         zoomIn.setOnAction(event -> zoomIn());
+        drawingMode.setOnMouseClicked(event -> gameModel.setSelectedPattern());
+        for (Node node : oscilators.getChildren()) {
+            if (node instanceof ImageView) {
+                ImageView imageView = (ImageView) node;
+                imageView.setOnMouseClicked(event -> gameModel.handleImageClick(event));
+            }
+        }
     }
 
     public void setData(int gridX, int gridY, int gameSpeed, boolean generateStartCivilization, List<Integer> aliveRuleSet, List<Integer> deadRuleSet) {
@@ -54,46 +67,53 @@ public class GameController extends GameView implements GameObserver {
         draw(gameModel.getGrid());
     }
 
-    public void play() {
+    private void play() {
         gameModel.startGame();
         setButtonDisabled(play, true);
         setButtonDisabled(pause, false);
         setButtonDisabled(generateNext, true);
     }
 
-    public void pause() {
+    private void pause() {
         gameModel.stopGame();
         setButtonDisabled(play, false);
         setButtonDisabled(pause, true);
         setButtonDisabled(generateNext, false);
     }
 
-    public void generateNext() {
+    private void generateNext() {
         if (gameModel.isGameStopped()) {
             gameModel.tick();
         }
     }
 
-    public void setPointsInGrid(double eventX, double eventY, MouseEvent event) {
+    private void setPointsInGrid(double eventX, double eventY, MouseEvent event) {
         int x = (int) (eventX / cellSize);
         int y = (int) (eventY / cellSize);
-        if (x >= 0 && y >= 0 && x < gameModel.getGridX() && y < gameModel.getGridY()) {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                gameModel.setPointsInGrid(gameModel.getGrid(), x, y, 1);
-/*                try {
-                    gameModel.readPattern(x, y);
-                } catch (IOException e) {
-                    throw new RuntimeException(e); РИСОВАТЬ ПАТТЕРН
+        if (gameModel.getSelectedPattern().equals("")) {
+            if (x >= 0 && y >= 0 && x < gameModel.getGridX() && y < gameModel.getGridY()) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    gameModel.setPointsInGrid(gameModel.getGrid(), x, y, 1);
+                    drawPoints(x, y, liveCellColor);
+                } else if (event.getButton() == MouseButton.SECONDARY) {
+                    gameModel.setPointsInGrid(gameModel.getGrid(), x, y, 0);
+                    drawPoints(x, y, deadCellColor);
                 }
-                draw(gameModel.getGrid());*/
-                drawPoints(x, y, liveCellColor);
+                showAmountOfAliveCells(gameModel.getCellsAlive());
             }
-            else if (event.getButton() == MouseButton.SECONDARY) {
-                gameModel.setPointsInGrid(gameModel.getGrid(), x, y, 0);
-                drawPoints(x, y, deadCellColor);
+        } else {
+            try {
+                gameModel.readPattern(x, y, gameModel.getSelectedPattern());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            showAmountOfAliveCells(gameModel.getCellsAlive());
+            draw(gameModel.getGrid());
         }
+    }
+
+    private void showPatternsList(double eventX, double eventY) {
+        showPatternWindow();
+
     }
 
     public void increaseSpeed() {
@@ -110,7 +130,7 @@ public class GameController extends GameView implements GameObserver {
         doZoomIn();
     }
 
-    public void zoomOut() {
+    private void zoomOut() {
         doZoomOut();
     }
 

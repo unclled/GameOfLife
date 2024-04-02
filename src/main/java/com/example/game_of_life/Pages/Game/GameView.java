@@ -1,14 +1,17 @@
 package com.example.game_of_life.Pages.Game;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
+import javafx.util.Duration;
 
 import java.util.prefs.Preferences;
 
@@ -20,6 +23,8 @@ public class GameView {
     @FXML public Text cellsAlive;
     @FXML public ScrollPane scrollPane;
     @FXML public Text generationsCounter;
+    @FXML public ScrollPane patternsWindow;
+    @FXML public VBox oscilators;
     protected Color liveCellColor;
     protected Color deadCellColor;
     protected byte cellSize;
@@ -47,28 +52,18 @@ public class GameView {
     public void draw(byte[][] grid) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                int x = i;
-                int gridX = grid.length;
                 int gridY = grid[i].length;
-                if (i >= gridX) {
-                    x = i % gridX; // Обработка цикличности по X
-                } else if (i < 0) {
-                    x = gridX + (i % gridX); // Обработка цикличности по X
-                }
 
                 int y = j;
                 if (j >= gridY) {
                     y = j % gridY; // Обработка цикличности по Y
-                } else if (j < 0) {
-                    y = gridY + (j % gridY); // Обработка цикличности по Y
                 }
-
-                if (grid[x][y] == 1) {
+                if (grid[i][y] == 1) {
                     graphics.setFill(liveCellColor);
-                    graphics.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
+                    graphics.fillRect((i * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
                 } else {
                     graphics.setFill(deadCellColor);
-                    graphics.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
+                    graphics.fillRect((i * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
                 }
             }
         }
@@ -98,6 +93,25 @@ public class GameView {
     public void doZoomIn() {
         Scale scale = new Scale(1.2, 1.2);
         gameField.getTransforms().add(scale);
+    }
+
+    public void showPatternWindow() {
+        if (!patternsWindow.isVisible()) {
+            patternsWindow.setVisible(true);
+            patternsWindow.setTranslateX(250);
+            TranslateTransition translate = new TranslateTransition();
+            translate.setNode(patternsWindow);
+            translate.setDuration(Duration.millis(400));
+            translate.setByX(-250);
+            translate.play();
+        } else {
+            TranslateTransition translate = new TranslateTransition();
+            translate.setNode(patternsWindow);
+            translate.setDuration(Duration.millis(400));
+            translate.setByX(250);
+            translate.setOnFinished(event -> patternsWindow.setVisible(false));
+            translate.play();
+        }
     }
 
     public void showCurrentGameSpeed(int gameSpeed) {

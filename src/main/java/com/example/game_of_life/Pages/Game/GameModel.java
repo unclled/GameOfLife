@@ -2,10 +2,13 @@ package com.example.game_of_life.Pages.Game;
 
 import com.example.game_of_life.Pages.MersenneTwister;
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Scanner;
 
 
@@ -22,13 +25,13 @@ public class GameModel {
 
     private byte[][] grid;
 
-    private Random random = new Random();
-
-    private AnimationTimer animationTimer;
+    private final AnimationTimer animationTimer;
     private GameObserver gameObserver;
 
     private int[] aliveRules;
     private int[] deadRules;
+
+    StringBuilder selectedPattern = new StringBuilder();
 
     public GameModel() {
         animationTimer = new AnimationTimer() {
@@ -42,6 +45,20 @@ public class GameModel {
                 }
             }
         };
+    }
+
+    public void handleImageClick(MouseEvent event) {
+        setSelectedPattern();
+        ImageView imageView = (ImageView) event.getSource();
+        String imageName = imageView.getImage().getUrl();
+        int length = imageName.length() - 5;
+        char symbol = imageName.charAt(length);
+        while (symbol != '/') {
+            selectedPattern.append(symbol);
+            length--;
+            symbol = imageName.charAt(length);
+        }
+        selectedPattern.reverse();
     }
 
     public void increaseSpeed() {
@@ -121,10 +138,10 @@ public class GameModel {
 
     private int countAliveNeighbors(int i, int j) {
         int sum = 0;
-        for (int k = -1; k <= 1; k++) {
-            for (int l = -1; l <= 1; l++) {
-                int x = (i + k + gridX) % gridX; // Обработка цикличности по X
-                int y = (j + l + gridY) % gridY; // Обработка цикличности по Y
+        for (int a = -1; a <= 1; a++) {
+            for (int b = -1; b <= 1; b++) {
+                int x = (i + a + gridX) % gridX; // Обработка цикличности по X
+                int y = (j + b + gridY) % gridY; // Обработка цикличности по Y
                 sum += grid[x][y];
             }
         }
@@ -132,10 +149,9 @@ public class GameModel {
         return sum;
     }
 
-    public void readPattern(int x, int y) throws IOException {
+    public void readPattern(int x, int y, String pattern) throws IOException {
         int saveX = x;
-        int saveY = y;
-        String filePath = "C:\\Projects\\GameOfLife\\src\\main\\java\\com\\example\\game_of_life\\Patterns\\68P9.txt";
+        String filePath = "C:\\Projects\\GameOfLife\\src\\main\\java\\com\\example\\game_of_life\\Patterns\\" + pattern + ".txt";
         try {
             File file = new File(filePath);
             FileInputStream fis = new FileInputStream(file);
@@ -145,6 +161,19 @@ public class GameModel {
                 x = saveX;
                 for (int i = 0; i < line.length(); i++) {
                     char c = line.charAt(i);
+                    if (x < 0 || y < 0 || x >= gridX || y >= gridY) {
+                        if (x >= gridX) {
+                            x %= gridX; // Обработка цикличности по X
+                        } else if (x < 0) {
+                            x = gridX + (x % gridX); // Обработка цикличности по X
+                        }
+
+                        if (y >= gridY) {
+                            y %= gridY; // Обработка цикличности по Y
+                        } else if (y < 0) {
+                            y %= gridY; // Обработка цикличности по Y
+                        }
+                    }
                     grid[x][y] = (byte) (c - '0');
                     x++;
                 }
@@ -153,12 +182,17 @@ public class GameModel {
 
             scanner.close();
             fis.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public String getSelectedPattern() {
+        return selectedPattern.toString();
+    }
+
+    public void setSelectedPattern() {
+        this.selectedPattern.delete(0, selectedPattern.length());
     }
 
     public void stopAnimator() {
