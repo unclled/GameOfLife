@@ -5,8 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -17,16 +20,30 @@ import java.util.prefs.Preferences;
 
 public class GameView {
     @FXML public Canvas gameField;
-    private GraphicsContext graphics;
+    @FXML public ScrollPane scrollPane;
+    @FXML public Accordion accordion;
+    @FXML public Pane saveWindow;
+
+    @FXML public Text generationsCounter;
     @FXML public Text showSpeed;
     @FXML public Text fieldSize;
     @FXML public Text cellsAlive;
-    @FXML public ScrollPane scrollPane;
-    @FXML public Text generationsCounter;
-    @FXML public ScrollPane patternsWindow;
-    @FXML public VBox oscilators;
+    @FXML public TextField filename;
+
+    @FXML public VBox patternsWindow;
+    @FXML public VBox spaceships;
+    @FXML public VBox methuselahs;
+    @FXML public VBox oscillators;
+    @FXML public VBox puffers;
+    @FXML public VBox guns;
+    @FXML public VBox gardenOfEden;
+    @FXML public VBox conduits;
+
+    private GraphicsContext graphics;
+
     protected Color liveCellColor;
     protected Color deadCellColor;
+
     protected byte cellSize;
     private byte outline;
 

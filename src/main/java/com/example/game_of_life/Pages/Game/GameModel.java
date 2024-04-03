@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -195,10 +196,6 @@ public class GameModel {
         this.selectedPattern.delete(0, selectedPattern.length());
     }
 
-    public void stopAnimator() {
-        animationTimer.stop();
-    }
-
     public int getGridX() {
         return gridX;
     }
@@ -264,5 +261,26 @@ public class GameModel {
 
     public void setDeadRules(int[] deadRules) {
         this.deadRules = deadRules;
+    }
+
+    public void saveGame(String filename, byte[][] grid, int gameSpeed, int generationsCount) {
+        stopGame();
+        try (PrintWriter writer = new PrintWriter(filename + ".txt")) {
+            for (byte[] bytes : grid) {
+                for (byte aByte : bytes) {
+                    writer.print(aByte);
+                }
+                writer.println();
+            }
+            writer.println(gameSpeed);
+            writer.println(generationsCount);
+        } catch (IOException e) {
+            System.out.println("Ошибка при записи в файл");
+            e.printStackTrace();
+        }
+    }
+
+    public void setGenerationsCount(int generationsCount) {
+        this.generationsCount = generationsCount;
     }
 }

@@ -12,11 +12,15 @@
     import javafx.scene.paint.Color;
     import javafx.scene.shape.Rectangle;
     import javafx.scene.text.Text;
+    import javafx.stage.FileChooser;
     import javafx.stage.Stage;
 
+    import java.io.File;
+    import java.io.IOException;
     import java.util.ArrayList;
     import java.util.Arrays;
     import java.util.List;
+    import java.util.Scanner;
     import java.util.prefs.Preferences;
     import java.util.stream.Collectors;
 
@@ -105,6 +109,7 @@
             startWindow.setVisible(false);
             loadGameWindow.setVisible(true);
             startGame.setVisible(true);
+            loadGame();
         }
 
         public void showHelpWindow() {
@@ -175,6 +180,27 @@
                     ((Rectangle) node).setFill(dead);
                 }
             });
+        }
+
+        public void loadGame() { /* TODO ДОДЕЛАТЬ */
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Game File");
+
+            Stage stage = new Stage();
+
+            File selectedFile = fileChooser.showOpenDialog(stage);
+
+            if (selectedFile != null) {
+                try (Scanner scanner = new Scanner(selectedFile)) {
+                    while (scanner.hasNextLine()) {
+                        String line = scanner.nextLine();
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Ошибка чтения");
+                    e.printStackTrace();
+                }
+            }
         }
 
         public void startGamePressed() throws Exception {
