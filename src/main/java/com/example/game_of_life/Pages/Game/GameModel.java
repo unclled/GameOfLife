@@ -48,51 +48,9 @@ public class GameModel {
         };
     }
 
-    public void handleImageClick(MouseEvent event) {
-        setSelectedPattern();
-        ImageView imageView = (ImageView) event.getSource();
-        String imageName = imageView.getImage().getUrl();
-        int length = imageName.length() - 5;
-        char symbol = imageName.charAt(length);
-        while (symbol != '/') {
-            selectedPattern.append(symbol);
-            length--;
-            symbol = imageName.charAt(length);
-        }
-        selectedPattern.reverse();
-    }
+    public void initialize(boolean needToInitialize) {
+        if (!needToInitialize) return;
 
-    public void increaseSpeed() {
-        if (gameSpeed < 1000) {
-            gameSpeed += 50;
-        }
-    }
-
-    public void decreaseSpeed() {
-        if (gameSpeed > 50) {
-            gameSpeed -= 50;
-        }
-    }
-
-    public void setGameObserver(GameObserver gameObserver) {
-        this.gameObserver = gameObserver;
-    }
-
-    private void notifyGameObserver() {
-        gameObserver.onTick();
-    }
-
-    public void startGame() {
-        isGameStopped = false;
-        animationTimer.start();
-    }
-
-    public void stopGame() {
-        isGameStopped = true;
-        animationTimer.stop();
-    }
-
-    public void initialize() {
         grid = new byte[gridX][gridY];
 
         MersenneTwister mersenneTwister = new MersenneTwister();
@@ -152,7 +110,7 @@ public class GameModel {
 
     public void readPattern(int x, int y, String pattern) throws IOException {
         int saveX = x;
-        String filePath = "C:\\Projects\\GameOfLife\\src\\main\\java\\com\\example\\game_of_life\\Patterns\\" + pattern + ".txt";
+        String filePath = "src/main/java/com/example/game_of_life/Patterns/" + pattern + ".txt";
         try {
             File file = new File(filePath);
             FileInputStream fis = new FileInputStream(file);
@@ -186,6 +144,81 @@ public class GameModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleImageClick(MouseEvent event) {
+        setSelectedPattern();
+        ImageView imageView = (ImageView) event.getSource();
+        String imageName = imageView.getImage().getUrl();
+        int length = imageName.length() - 5;
+        char symbol = imageName.charAt(length);
+        while (symbol != '/') {
+            selectedPattern.append(symbol);
+            length--;
+            symbol = imageName.charAt(length);
+        }
+        selectedPattern.reverse();
+    }
+
+    public void setPointsInGrid(byte[][] grid, int x, int y, int action) {
+        if (grid[x][y] == 0 && action == 1) {
+            cellsAlive++;
+            grid[x][y] = 1;
+        } else if (grid[x][y] == 1 && action == 0) {
+            cellsAlive--;
+            grid[x][y] = 0;
+        }
+    }
+
+    public void saveGame(String filename) {
+        stopGame();
+
+        if (filename.equals("")) return;
+
+        try (PrintWriter writer = new PrintWriter("src/main/java/com/example/game_of_life/Saves/" + filename + ".txt")) {
+            writer.println(gridX);
+            writer.println(gridY);
+            for (byte[] bytes : grid) {
+                for (byte aByte : bytes) {
+                    writer.print(aByte);
+                }
+                writer.println();
+            }
+            writer.println(gameSpeed);
+            writer.println(generationsCount);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void increaseSpeed() {
+        if (gameSpeed < 1000) {
+            gameSpeed += 50;
+        }
+    }
+
+    public void decreaseSpeed() {
+        if (gameSpeed > 50) {
+            gameSpeed -= 50;
+        }
+    }
+
+    public void startGame() {
+        isGameStopped = false;
+        animationTimer.start();
+    }
+
+    public void stopGame() {
+        isGameStopped = true;
+        animationTimer.stop();
+    }
+
+    public void setGameObserver(GameObserver gameObserver) {
+        this.gameObserver = gameObserver;
+    }
+
+    private void notifyGameObserver() {
+        gameObserver.onTick();
     }
 
     public String getSelectedPattern() {
@@ -232,23 +265,16 @@ public class GameModel {
         return grid;
     }
 
-    public void setPointsInGrid(byte[][] grid, int x, int y, int action) {
-        if (grid[x][y] == 0 && action == 1) {
-            cellsAlive++;
-            grid[x][y] = 1;
-        }
-        else if (grid[x][y] == 1 && action == 0) {
-            cellsAlive--;
-            grid[x][y] = 0;
-        }
-    }
-
     public void setGrid(byte[][] grid) {
         this.grid = grid;
     }
 
     public int getCellsAlive() {
         return cellsAlive;
+    }
+
+    public void setCellsAlive(int cellsAlive) {
+        this.cellsAlive = cellsAlive;
     }
 
     public int getGenerationsCount() {
@@ -261,23 +287,6 @@ public class GameModel {
 
     public void setDeadRules(int[] deadRules) {
         this.deadRules = deadRules;
-    }
-
-    public void saveGame(String filename, byte[][] grid, int gameSpeed, int generationsCount) {
-        stopGame();
-        try (PrintWriter writer = new PrintWriter(filename + ".txt")) {
-            for (byte[] bytes : grid) {
-                for (byte aByte : bytes) {
-                    writer.print(aByte);
-                }
-                writer.println();
-            }
-            writer.println(gameSpeed);
-            writer.println(generationsCount);
-        } catch (IOException e) {
-            System.out.println("Ошибка при записи в файл");
-            e.printStackTrace();
-        }
     }
 
     public void setGenerationsCount(int generationsCount) {

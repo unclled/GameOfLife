@@ -39,7 +39,7 @@ public class GameView {
     @FXML public VBox gardenOfEden;
     @FXML public VBox conduits;
 
-    private GraphicsContext graphics;
+    protected GraphicsContext graphics;
 
     protected Color liveCellColor;
     protected Color deadCellColor;
@@ -48,7 +48,6 @@ public class GameView {
     private byte outline;
 
     public void initializeView(int gridX, int gridY) {
-        graphics = gameField.getGraphicsContext2D();
         Preferences prefs = Preferences.userRoot();
         liveCellColor = Color.valueOf(prefs.get("LIVECELLCOLOR", "white"));
         deadCellColor = Color.valueOf(prefs.get("DEADCELLCOLOR", "black"));
@@ -56,6 +55,7 @@ public class GameView {
         outline = (byte) (cellSize < 10 ? 1 : 2);
         gameField.setHeight(gridY * cellSize);
         gameField.setWidth(gridX * cellSize);
+        graphics = gameField.getGraphicsContext2D();
         fieldSize.setText("Размер поля: " + gridX + "x" + gridY);
 
         for (int i = 0; i < gridX; i++) {

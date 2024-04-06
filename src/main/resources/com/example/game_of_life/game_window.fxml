@@ -196,7 +196,7 @@
          <Cursor fx:constant="DEFAULT" />
       </cursor>
    </Text>
-   <VBox fx:id="patternsWindow" alignment="TOP_CENTER" layoutX="1000.0" prefHeight="686.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #25262b;">
+   <VBox fx:id="patternsWindow" alignment="TOP_CENTER" layoutX="1000.0" prefHeight="686.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #25262b;" visible="false">
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Выбор паттернов" textAlignment="CENTER" wrappingWidth="200.0" y="20.0">
          <font>
             <Font name="Segoe UI Bold" size="18.0" />
@@ -215,7 +215,7 @@
             <Insets />
          </VBox.margin>
          <font>
-            <Font name="Segoe UI Bold" size="12.0" />
+            <Font name="Segoe UI Bold" size="14.0" />
          </font>
       </Button>
       <Accordion fx:id="accordion" prefWidth="200.0" style="-fx-background-color: transparent;" stylesheets="@../../../style.css">
@@ -511,37 +511,41 @@
          </styleClass>
       </Accordion>
    </VBox>
-   <Pane fx:id="saveWindow" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: rgba(175,175,175,0.5);"
-         visible="false">
-      <VBox alignment="CENTER" layoutX="425.0" layoutY="300.0" prefHeight="200.0" prefWidth="350.0" spacing="10.0"
-            style="-fx-background-color: #ffffff; -fx-background-radius: 16;">
+   <Pane fx:id="saveWindow" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: rgba(175,175,175,0.5);" visible="false">
+      <VBox alignment="CENTER" layoutX="425.0" layoutY="300.0" prefHeight="200.0" prefWidth="350.0" spacing="10.0" style="-fx-background-color: #ffffff; -fx-background-radius: 16;">
          <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Сохранение игры">
             <font>
-               <Font name="Segoe UI Bold" size="24.0"/>
+               <Font name="Segoe UI Bold" size="24.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="20.0" top="20.0"/>
+               <Insets bottom="20.0" top="20.0" />
             </VBox.margin>
          </Text>
-         <TextField fx:id="filename" maxHeight="34.0" maxWidth="220.0" prefHeight="34.0" prefWidth="200.0"
-                    promptText="Введите имя файла"
-                    style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;">
+         <TextField fx:id="filename" maxHeight="34.0" maxWidth="220.0" prefHeight="34.0" prefWidth="200.0" promptText="Введите имя файла" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;">
             <font>
-               <Font name="Segoe UI Bold" size="16.0"/>
+               <Font name="Segoe UI Bold" size="16.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="20.0"/>
+               <Insets bottom="20.0" />
             </VBox.margin>
          </TextField>
-         <Button fx:id="saveGameToFile" mnemonicParsing="false" style="-fx-background-color: #6169ff;"
-                 text="Сохранить" textFill="WHITE">
+         <Button fx:id="saveGameToFile" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #6169ff;" text="Сохранить" textFill="WHITE">
             <VBox.margin>
-               <Insets bottom="20.0"/>
+               <Insets bottom="20.0" />
             </VBox.margin>
             <font>
-               <Font name="Segoe UI Bold" size="14.0"/>
+               <Font name="Segoe UI Bold" size="14.0" />
             </font>
          </Button>
       </VBox>
+      <Button fx:id="closeSaveWindow" layoutX="730.0" layoutY="310.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../background/cancel.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </Pane>
 </Pane>

@@ -15,4 +15,6 @@ module com.example.game_of_life {
     opens com.example.game_of_life to javafx.fxml;
     exports com.example.game_of_life.Pages.MainMenu;
     exports com.example.game_of_life.Pages.Game;
+    exports com.example.game_of_life;
+    opens com.example.game_of_life.Pages.MainMenu;
 }
