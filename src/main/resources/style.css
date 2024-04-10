@@ -1,0 +1,86 @@
+.background-color {
+    -fx-background-color: linear-gradient(to right, #25262b, #37407d, #25262b);
+}
+
+.background-color2 {
+    -fx-background-color: linear-gradient(to top, #25262b, #37407d, #25262b);
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 10em;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: white;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.color-picker .label {
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: black;
+}
+
+.combo-box .list-view .list-cell:focused {
+    -fx-background-color : #6169ff;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color : #6169ff;
+    -fx-text-fill: white;
+}
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #6169ff;
+}
+
+.acc-titled-pane .content {
+    -fx-border-width: 0;
+}
+
+.acc-titled-pane .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.accordion .titled-pane .title {
+    -fx-background-color: transparent;
+}
+
+.accordion .titled-pane>.title>.arrow-button>.arrow {
+    -fx-background-color: white;
+}
+
+.list-cell {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
