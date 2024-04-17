@@ -19,13 +19,14 @@
 <?import javafx.scene.text.Text?>
 
 <Pane prefHeight="800.0" prefWidth="1200.0" styleClass="background-color" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_of_life.Pages.Game.GameController">
-   <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0">
-      <HBox alignment="CENTER">
+   <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: transparent;">
+      <HBox alignment="CENTER" style="-fx-background-color: transparent;">
          <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent;" stylesheets="@../../../style.css">
             <styleClass>
                <String fx:value="scroll-bar" />
                <String fx:value="corner" />
                <String fx:value="thumb" />
+               <String fx:value="title" />
             </styleClass>
             <Canvas fx:id="gameField" height="700.0" width="1200.0" />
          </ScrollPane>
@@ -476,7 +477,59 @@
                  <Font name="Segoe UI Bold" size="14.0" />
               </font>
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
-                 <VBox fx:id="puffers" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;" />
+                 <VBox fx:id="puffers" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Backrake1.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Backrake2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Backrake3.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Blinker-puffer1.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Blinker-puffer2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Block-laying-switch-engine.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Frothing-puffer.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Hivenudger2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Noah_s-ark.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/p28-block-puffer.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/p112-puffer.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/puffer1.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/puffer2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Pufferfish.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Slow-puffer1.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Slow-puffer2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Puffers/Space-rake.png" />
+                    </ImageView>
+                 </VBox>
               </ScrollPane>
            </TitledPane>
            <TitledPane prefHeight="581.0" prefWidth="200.0" style="-fx-background-color: transparent;" styleClass="acc-titled-pane" stylesheets="@../../../style.css" text="Пушки" textFill="WHITE">
@@ -484,7 +537,62 @@
                  <Font name="Segoe UI Bold" size="14.0" />
               </font>
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
-                 <VBox fx:id="guns" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;" />
+                 <VBox fx:id="guns" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/AK-94.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/B-52-bomber.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Bi-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Gosper-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/hotcrystal-reaction.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/New-gun1.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/New-gun2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/p4-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Period-15-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Period-44-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Period-44-MWSS-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Period-45-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Period-88-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Period-117-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Period-156-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Period-256-glider-gun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Twogun.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Guns/Vacuum.png" />
+                    </ImageView>
+                 </VBox>
               </ScrollPane>
            </TitledPane>
            <TitledPane prefHeight="581.0" prefWidth="200.0" style="-fx-background-color: transparent;" styleClass="acc-titled-pane" stylesheets="@../../../style.css" text="Сады Эдема" textFill="WHITE">
@@ -492,7 +600,35 @@
                  <Font name="Segoe UI Bold" size="14.0" />
               </font>
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
-                 <VBox fx:id="gardenOfEden" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;" />
+                 <VBox fx:id="gardenOfEden" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Achim-Flammenkamp.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Achim-Flammenkamp2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Marijn-Heule.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Nicolay-Beluchenko.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Nicolay-Beluchenko2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Roger-Banks.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Steven-Eker.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Steven-Eker2.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Garden-of-Eden/Steven-Eker3.png" />
+                    </ImageView>
+                 </VBox>
               </ScrollPane>
            </TitledPane>
            <TitledPane prefHeight="581.0" prefWidth="200.0" style="-fx-background-color: transparent;" styleClass="acc-titled-pane" stylesheets="@../../../style.css" text="Трубопроводы" textFill="WHITE">
@@ -500,7 +636,41 @@
                  <Font name="Segoe UI Bold" size="14.0" />
               </font>
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
-                 <VBox fx:id="conduits" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;" />
+                 <VBox fx:id="conduits" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/BNE14T30.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/Bronco.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/Bx125.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/Bx222.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/Callahan-G-to-H.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/F131.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/F166.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/Lx73.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/Lx84.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/p4-syringe.png" />
+                    </ImageView>
+                    <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../../../patterns/Conduits/Speed-tunnel.png" />
+                    </ImageView>
+                 </VBox>
               </ScrollPane>
            </TitledPane>
         </panes>
@@ -512,13 +682,13 @@
       </Accordion>
    </VBox>
    <Pane fx:id="saveWindow" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: rgba(175,175,175,0.5);" visible="false">
-      <VBox alignment="CENTER" layoutX="425.0" layoutY="300.0" prefHeight="200.0" prefWidth="350.0" spacing="10.0" style="-fx-background-color: #ffffff; -fx-background-radius: 16;">
+      <VBox alignment="CENTER" layoutX="425.0" layoutY="300.0" prefHeight="200.0" prefWidth="350.0" spacing="34.0" style="-fx-background-color: #ffffff; -fx-background-radius: 16;">
          <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Сохранение игры">
             <font>
                <Font name="Segoe UI Bold" size="24.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="20.0" top="20.0" />
+               <Insets />
             </VBox.margin>
          </Text>
          <TextField fx:id="filename" maxHeight="34.0" maxWidth="220.0" prefHeight="34.0" prefWidth="200.0" promptText="Введите имя файла" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;">
@@ -526,24 +696,22 @@
                <Font name="Segoe UI Bold" size="16.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="20.0" />
+               <Insets />
             </VBox.margin>
          </TextField>
-         <Button fx:id="saveGameToFile" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #6169ff;" text="Сохранить" textFill="WHITE">
+         <Button fx:id="saveGameToFile" mnemonicParsing="false" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: #6169ff; -fx-background-radius: 10;" text="Сохранить" textFill="WHITE">
             <VBox.margin>
-               <Insets bottom="20.0" />
+               <Insets />
             </VBox.margin>
             <font>
                <Font name="Segoe UI Bold" size="14.0" />
             </font>
          </Button>
       </VBox>
-      <Button fx:id="closeSaveWindow" layoutX="730.0" layoutY="310.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+      <Button fx:id="closeSaveWindow" layoutX="726.0" layoutY="318.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../background/cancel.png" />
-               </image>
+               <Image url="@../../../background/cancel.png" />
             </ImageView>
          </graphic>
       </Button>

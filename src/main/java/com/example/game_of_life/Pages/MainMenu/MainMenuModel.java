@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -19,9 +21,7 @@ public class MainMenuModel {
     private List<Integer> aliveRuleSet = new ArrayList<>();
     private List<Integer> deadRuleSet = new ArrayList<>();
 
-    private int maxFieldSize;
-
-    public ListView getNodesForDirectory(ListView saves) {
+    public void getSaves(ListView<String> saves) { //получаем все существующие сохранения
         File directory = new File("src/main/java/com/example/game_of_life/Saves");
         saves.getItems().clear();
 
@@ -32,24 +32,27 @@ public class MainMenuModel {
                 }
             }
         }
-        return saves;
     }
 
-    public void deleteSave(ListView saves) {
+    public void deleteSave(ListView<String> saves) { //удаляем выбранное сохранение
         var selectedItem = saves.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             File selectedFile = new File("src/main/java/com/example/game_of_life/Saves/" + selectedItem);
             selectedFile.delete();
-            getNodesForDirectory(saves);
+            getSaves(saves);
         }
     }
 
-    public void loadGamePressed(ListView saves) {
-        File selectedFile = new File("src/main/java/com/example/game_of_life/Saves/"
-                + saves
-                .getSelectionModel()
-                .getSelectedItem()
-                .toString());
+    public void loadGamePressed(ListView<String> saves) { //загрузка выбранной игры
+        File selectedFile;
+        try {
+            selectedFile = new File("src/main/java/com/example/game_of_life/Saves/"
+                    + saves
+                    .getSelectionModel()
+                    .getSelectedItem());
+        } catch (Exception e) {
+            return;
+        }
 
         try (Scanner scanner = new Scanner(selectedFile)) {
             int gridX = Integer.parseInt(scanner.nextLine());
@@ -75,6 +78,7 @@ public class MainMenuModel {
     }
 
     private void loadGame(int gridX, int gridY, byte[][] grid, int gameSpeed, int generationsCount) throws IOException {
+        //инициализация сохраненной игры для игрового окна
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/game_of_life/game_window.fxml"));
         Parent root = fxmlLoader.load();
         Stage primaryStage = new Stage();
@@ -82,6 +86,7 @@ public class MainMenuModel {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Игра \"Жизнь\"");
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/background/patterns.png")));
         GameController gameController = fxmlLoader.getController();
 
         getDefaultRules();
@@ -97,10 +102,10 @@ public class MainMenuModel {
         primaryStage.show();
     }
 
-    public void startGamePressed(int gridX, int gridY, int gameSpeed, boolean generateStart) {
+    public void startGamePressed(int gridX, int gridY, int gameSpeed, boolean generateStart) { //создание новой игры
         Preferences prefs = Preferences.userRoot();
-        maxFieldSize = getMaxFieldSize(prefs.getInt("CELLSIZE", 20));
-        if (gridX > maxFieldSize || gridY > maxFieldSize) return;
+        int maxFieldSize = getMaxFieldSize(prefs.getInt("CELLSIZE", 20));
+        if (gridX > maxFieldSize || gridY > maxFieldSize || gridX < 3 || gridY < 3) return;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/game_of_life/game_window.fxml"));
         Parent root;
         try {
@@ -113,6 +118,7 @@ public class MainMenuModel {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Игра \"Жизнь\"");
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/background/patterns.png")));
         GameController gameController = fxmlLoader.getController();
 
         getDefaultRules();
@@ -128,7 +134,7 @@ public class MainMenuModel {
         primaryStage.show();
     }
 
-    public void getDefaultRules() {
+    public void getDefaultRules() { //получить правила по умолчанию
         Preferences prefs = Preferences.userRoot();
         aliveRuleSet = Arrays.stream(prefs.get("ALIVERULESET", "2 3").split(" "))
                 .map(Integer::parseInt)
@@ -139,12 +145,13 @@ public class MainMenuModel {
                 .collect(Collectors.toList());
     }
 
-    public void saveRules(Group aliveRulesSet, Group deadRulesSet) {
+    public void saveRules(Group aliveRulesSet, Group deadRulesSet) { //сохранить изменения в правилах
         Preferences prefs = Preferences.userRoot();
         aliveRuleSet.clear();
         deadRuleSet.clear();
         final int[] i = {0};
 
+        //перебираем все чекбоксы для каждой из групп
         aliveRulesSet.getChildren().forEach(node -> {
             if (node instanceof CheckBox) {
                 if (((CheckBox) node).isSelected()) {
@@ -163,6 +170,8 @@ public class MainMenuModel {
                 i[0]++;
             }
         });
+
+        //обновляем значения в сохраненных данных
         String aliveRuleSetStr = aliveRuleSet.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(" "));
@@ -172,6 +181,19 @@ public class MainMenuModel {
                 .map(Object::toString)
                 .collect(Collectors.joining(" "));
         prefs.put("DEADRULESET", deadRuleSetStr);
+    }
+
+    public int tryParseGridX(TextField gridX) {
+        if (gridX.getText().matches("\\d+")) { //введены корректные данные
+            return Integer.parseInt(gridX.getText());
+        }
+        return -1;
+    }
+
+    public int tryParseGridY(TextField gridY) {
+        if (gridY.getText().matches("\\d+")) { //введены корректные данные
+            return Integer.parseInt(gridY.getText());
+        } return -1;
     }
 
     public List<Integer> getAliveRuleSet() {
@@ -184,9 +206,5 @@ public class MainMenuModel {
 
     public int getMaxFieldSize(double value) {
         return (int) (20.0 / value * 819);
-    }
-
-    public void setMaxFieldSize(int maxFieldSize) {
-        this.maxFieldSize = maxFieldSize;
     }
 }

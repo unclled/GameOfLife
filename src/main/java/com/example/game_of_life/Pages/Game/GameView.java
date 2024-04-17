@@ -19,16 +19,11 @@ import javafx.util.Duration;
 import java.util.prefs.Preferences;
 
 public class GameView {
+    //-----------Контейнеры-----------//
     @FXML public Canvas gameField;
     @FXML public ScrollPane scrollPane;
     @FXML public Accordion accordion;
     @FXML public Pane saveWindow;
-
-    @FXML public Text generationsCounter;
-    @FXML public Text showSpeed;
-    @FXML public Text fieldSize;
-    @FXML public Text cellsAlive;
-    @FXML public TextField filename;
 
     @FXML public VBox patternsWindow;
     @FXML public VBox spaceships;
@@ -39,6 +34,14 @@ public class GameView {
     @FXML public VBox gardenOfEden;
     @FXML public VBox conduits;
 
+    //------Текст и текстовые поля------//
+    @FXML public Text generationsCounter;
+    @FXML public Text showSpeed;
+    @FXML public Text fieldSize;
+    @FXML public Text cellsAlive;
+    @FXML public TextField filename;
+    //---------------------------------//
+
     protected GraphicsContext graphics;
 
     protected Color liveCellColor;
@@ -48,17 +51,17 @@ public class GameView {
     private byte outline;
 
     public void initializeView(int gridX, int gridY) {
-        Preferences prefs = Preferences.userRoot();
+        Preferences prefs = Preferences.userRoot(); //считываем сохраненные значения для поля
         liveCellColor = Color.valueOf(prefs.get("LIVECELLCOLOR", "white"));
         deadCellColor = Color.valueOf(prefs.get("DEADCELLCOLOR", "black"));
         cellSize = Byte.parseByte(prefs.get("CELLSIZE", "20"));
         outline = (byte) (cellSize < 10 ? 1 : 2);
+
         gameField.setHeight(gridY * cellSize);
         gameField.setWidth(gridX * cellSize);
         graphics = gameField.getGraphicsContext2D();
         fieldSize.setText("Размер поля: " + gridX + "x" + gridY);
-
-        for (int i = 0; i < gridX; i++) {
+        for (int i = 0; i < gridX; i++) { //красим поле
             for (int j = 0; j < gridY; j++) {
                 graphics.setFill(deadCellColor);
                 graphics.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
@@ -66,19 +69,18 @@ public class GameView {
         }
     }
 
-    public void draw(byte[][] grid) {
+    public void drawField(byte[][] grid) { //отрисовываем поле
+        int gridY = grid[0].length;
         for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                int gridY = grid[i].length;
-
+            for (int j = 0; j < gridY; j++) {
                 int y = j;
                 if (j >= gridY) {
-                    y = j % gridY; // Обработка цикличности по Y
+                    y = j % gridY; //обработка цикличности по Y
                 }
-                if (grid[i][y] == 1) {
+                if (grid[i][y] == 1) { //клетка живая
                     graphics.setFill(liveCellColor);
                     graphics.fillRect((i * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
-                } else {
+                } else { //клетка мертвая
                     graphics.setFill(deadCellColor);
                     graphics.fillRect((i * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
                 }
@@ -96,7 +98,7 @@ public class GameView {
     }
 
     public void showGenerationsCounter(int generationsCount) {
-        generationsCounter.setText("Количество генераций: " + generationsCount);
+        generationsCounter.setText("Число генераций: " + generationsCount);
     }
 
     public void doZoomOut() {
@@ -113,7 +115,7 @@ public class GameView {
     }
 
     public void showPatternWindow() {
-        if (!patternsWindow.isVisible()) {
+        if (!patternsWindow.isVisible()) { //анимация появления/исчезновения окна паттернов
             patternsWindow.setVisible(true);
             patternsWindow.setTranslateX(250);
             TranslateTransition translate = new TranslateTransition();

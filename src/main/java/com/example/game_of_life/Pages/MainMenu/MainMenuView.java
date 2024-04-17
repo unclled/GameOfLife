@@ -9,16 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class MainMenuView {
-    @FXML public TextField gridX;
-    @FXML public TextField gridY;
-
-    @FXML public Text gridXVisualize;
-    @FXML public Text gridYVisualize;
-    @FXML public Text fieldSizeText;
-
-    @FXML public Slider gameSpeed;
-    @FXML public Slider cellSizeSlider;
-
+    //----------Контейнеры----------//
     @FXML public VBox startWindow;
     @FXML public VBox newGameWindow;
     @FXML public VBox loadGameWindow;
@@ -26,11 +17,22 @@ public class MainMenuView {
     @FXML public VBox settingsWindow;
     @FXML public VBox rulesWindow;
 
-    @FXML public Button goBack;
+    //-----Текст и текстовые поля-----//
+    @FXML public Text gridXVisualize;
+    @FXML public Text gridYVisualize;
+    @FXML public Text fieldSizeText;
+    @FXML public TextField gridX;
+    @FXML public TextField gridY;
 
+    //-----------Ползунки-----------//
+    @FXML public Slider gameSpeed;
+    @FXML public Slider cellSizeSlider;
+
+    //-----------Выбор цвета-----------//
     @FXML public ColorPicker deadCellColor;
     @FXML public ColorPicker liveCellColor;
 
+    //-----------Группы-----------//
     @FXML public Group liveGroup;
     @FXML public Group deadGroup;
     @FXML public Group aliveRulesSet;
@@ -38,14 +40,39 @@ public class MainMenuView {
 
     @FXML public CheckBox generateStart;
 
-    @FXML ListView saves;
+    @FXML ListView<String> saves;
+
+    @FXML public Button goBack;
 
     public void showNewGameWindow() {
         goBack.setVisible(true);
         startWindow.setVisible(false);
         newGameWindow.setVisible(true);
-        gridX.textProperty().addListener((observableValue, s, t1) -> gridXVisualize.setText(t1));
-        gridY.textProperty().addListener((observableValue, s, t1) -> gridYVisualize.setText(t1));
+
+        /* устанавливаем дополнительные слушатели для визуального отображения
+        * и отслеживания корректного ввода в текстовые поля */
+        gridX.textProperty().addListener((observableValue, s, t1) -> {
+            if (gridX.getLength() <= 4)
+                gridXVisualize.setText(t1);
+        });
+        gridY.textProperty().addListener((observableValue, s, t1) -> {
+            if (gridY.getLength() <= 4)
+                gridYVisualize.setText(t1);
+        });
+        gridX.setTextFormatter(new TextFormatter<Integer>(change -> {
+            if (!(change.getControlNewText().matches("\\d{0,4}"))) {
+                return null;
+            } else {
+                return change;
+            }
+        }));
+        gridY.setTextFormatter(new TextFormatter<Integer>(change -> {
+            if (!(change.getControlNewText().matches("\\d{0,4}"))) {
+                return null;
+            } else {
+                return change;
+            }
+        }));
         resetData();
     }
 
@@ -61,7 +88,7 @@ public class MainMenuView {
         infoWindow.setVisible(true);
     }
 
-    public void setToDefault() {
+    public void setToDefault() { //устанавливаем значения по умолчанию
         startWindow.setVisible(true);
         newGameWindow.setVisible(false);
         loadGameWindow.setVisible(false);
@@ -71,7 +98,7 @@ public class MainMenuView {
         rulesWindow.setVisible(false);
     }
 
-    private void resetData() {
+    private void resetData() { //сброс ввода для новой игры
         gridX.clear();
         gridY.clear();
         gridXVisualize.setText("");
@@ -80,6 +107,7 @@ public class MainMenuView {
         generateStart.setSelected(false);
     }
 
+    //перекрашиваем квадрат предпросмотра
     public void liveExampleColor(Color live) {
         liveGroup.getChildren().forEach(node -> {
             if (node instanceof Rectangle) {

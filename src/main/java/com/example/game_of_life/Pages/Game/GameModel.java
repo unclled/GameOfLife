@@ -1,6 +1,5 @@
 package com.example.game_of_life.Pages.Game;
 
-import com.example.game_of_life.Pages.MersenneTwister;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -10,10 +9,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 
 public class GameModel {
+    private static final int MAX_GAME_SPEED = 1000;
+    private static final int MIN_GAME_SPEED = 50;
+    private static final int TIME_STEP = 50;
+
+    private GameObserver gameObserver;
+
+    private final AnimationTimer animationTimer;
+
+    private int[] aliveRules;
+    private int[] deadRules;
+
+    StringBuilder selectedPattern = new StringBuilder();
 
     private int gridX;
     private int gridY;
@@ -26,14 +38,6 @@ public class GameModel {
 
     private byte[][] grid;
 
-    private final AnimationTimer animationTimer;
-    private GameObserver gameObserver;
-
-    private int[] aliveRules;
-    private int[] deadRules;
-
-    StringBuilder selectedPattern = new StringBuilder();
-
     public GameModel() {
         animationTimer = new AnimationTimer() {
             private long lastUpdate = 0;
@@ -41,7 +45,7 @@ public class GameModel {
             @Override
             public void handle(long now) {
                 if ((now - lastUpdate) >= gameSpeed * 1_000_000L) {
-                    tick();
+                    newGeneration();
                     lastUpdate = now;
                 }
             }
@@ -52,55 +56,58 @@ public class GameModel {
         if (!needToInitialize) return;
 
         grid = new byte[gridX][gridY];
+        if (generateStartCivilization) { //случайное заполнение поля
+            Random random = new Random();
+            int blockSize = gridX < 900 ? 3 : 10;
+            for (int i = 0; i < gridX; i += blockSize) {
+                for (int j = 0; j < gridY; j += blockSize) {
 
-        MersenneTwister mersenneTwister = new MersenneTwister();
-        if (generateStartCivilization) {
-            for (int i = 0; i < gridX; i++) {
-                for (int j = 0; j < gridY; j++) {
-                    byte num = grid[i][j] = (byte) (mersenneTwister.nextByte() & 1);
-                    if (num == 1) {
-                        cellsAlive++;
+                    byte value = (byte) random.nextInt(2);
+                    for (int x = i; x < Math.min(gridX, i + blockSize); x++) {
+                        for (int y = j; y < Math.min(gridY, j + blockSize); y++) {
+                            grid[x][y] = value;
+                            if (value == 1)
+                                cellsAlive++;
+                        }
                     }
                 }
             }
         }
     }
 
-    public void tick() {
+    public void newGeneration() { //создаем новую генерацию
         generationsCount++;
-        byte[][] next = new byte[gridX][gridY];
-        int newCellsAlive = 0;
+        byte[][] nextGeneration = new byte[gridX][gridY];
+        cellsAlive = 0;
 
         for (int i = 0; i < gridX; i++) {
             for (int j = 0; j < gridY; j++) {
                 int neighbors = countAliveNeighbors(i, j);
 
                 if (grid[i][j] == 1) {
-                    if (Arrays.binarySearch(aliveRules, neighbors) >= 0) {
-                        next[i][j] = 1;
-                        newCellsAlive++;
+                    if (Arrays.binarySearch(aliveRules, neighbors) >= 0) { //если количество соседей удовлетворяет
+                        nextGeneration[i][j] = 1; //правилам для выживания клетки
+                        cellsAlive++;
                     }
                 } else {
-                    if (Arrays.binarySearch(deadRules, neighbors) >= 0) {
-                        next[i][j] = 1;
-                        newCellsAlive++;
+                    if (Arrays.binarySearch(deadRules, neighbors) >= 0) { //если количество соседей удовлетворяет
+                        nextGeneration[i][j] = 1; //правилам для воскрешения клетки
+                        cellsAlive++;
                     }
                 }
             }
         }
-
-        grid = next;
-        cellsAlive = newCellsAlive;
+        grid = nextGeneration;
 
         notifyGameObserver();
     }
 
-    private int countAliveNeighbors(int i, int j) {
+    private int countAliveNeighbors(int i, int j) { //подсчет соседей
         int sum = 0;
         for (int a = -1; a <= 1; a++) {
             for (int b = -1; b <= 1; b++) {
-                int x = (i + a + gridX) % gridX; // Обработка цикличности по X
-                int y = (j + b + gridY) % gridY; // Обработка цикличности по Y
+                int x = (i + a + gridX) % gridX; //обработка цикличности по X
+                int y = (j + b + gridY) % gridY; //обработка цикличности по Y
                 sum += grid[x][y];
             }
         }
@@ -108,32 +115,37 @@ public class GameModel {
         return sum;
     }
 
-    public void readPattern(int x, int y, String pattern) throws IOException {
+    public void readPattern(int x, int y, String pattern) throws IOException { //считываем паттерн из файла
         int saveX = x;
         String filePath = "src/main/java/com/example/game_of_life/Patterns/" + pattern + ".txt";
+
         try {
             File file = new File(filePath);
             FileInputStream fis = new FileInputStream(file);
             Scanner scanner = new Scanner(fis);
+
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 x = saveX;
                 for (int i = 0; i < line.length(); i++) {
                     char c = line.charAt(i);
-                    if (x < 0 || y < 0 || x >= gridX || y >= gridY) {
+                    if (x < 0 || y < 0 || x >= gridX || y >= gridY) { //обработка выхода за границы
                         if (x >= gridX) {
-                            x %= gridX; // Обработка цикличности по X
+                            x %= gridX; //обработка цикличности по X
                         } else if (x < 0) {
-                            x = gridX + (x % gridX); // Обработка цикличности по X
+                            x = gridX + (x % gridX); //обработка цикличности по X
                         }
 
                         if (y >= gridY) {
-                            y %= gridY; // Обработка цикличности по Y
+                            y %= gridY; //обработка цикличности по Y
                         } else if (y < 0) {
-                            y %= gridY; // Обработка цикличности по Y
+                            y %= gridY; //обработка цикличности по Y
                         }
                     }
-                    grid[x][y] = (byte) (c - '0');
+                    byte temp = (byte) (c - '0');
+                    if (temp == 1)
+                        cellsAlive++;
+                    grid[x][y] = temp;
                     x++;
                 }
                 y++;
@@ -146,13 +158,15 @@ public class GameModel {
         }
     }
 
-    public void handleImageClick(MouseEvent event) {
+    public void handleImageClick(MouseEvent event) { //обработка нажатия на картинку паттерна
         setSelectedPattern();
+
         ImageView imageView = (ImageView) event.getSource();
         String imageName = imageView.getImage().getUrl();
-        int length = imageName.length() - 5;
+        int length = imageName.length() - 5; //отсекаем .png из названия
         char symbol = imageName.charAt(length);
-        while (symbol != '/') {
+
+        while (symbol != '/') { //получаем имя картинки
             selectedPattern.append(symbol);
             length--;
             symbol = imageName.charAt(length);
@@ -161,16 +175,16 @@ public class GameModel {
     }
 
     public void setPointsInGrid(byte[][] grid, int x, int y, int action) {
-        if (grid[x][y] == 0 && action == 1) {
+        if (grid[x][y] == 0 && action == 1) { //если клетка мертва и нажата ЛКМ
             cellsAlive++;
             grid[x][y] = 1;
-        } else if (grid[x][y] == 1 && action == 0) {
+        } else if (grid[x][y] == 1 && action == 0) { //если клетка мертва и нажата ПКМ
             cellsAlive--;
             grid[x][y] = 0;
         }
     }
 
-    public void saveGame(String filename) {
+    public void saveGame(String filename) { //сохранение игры в файл
         stopGame();
 
         if (filename.equals("")) return;
@@ -191,15 +205,15 @@ public class GameModel {
         }
     }
 
-    public void increaseSpeed() {
-        if (gameSpeed < 1000) {
-            gameSpeed += 50;
+    public void increaseSpeed() { //повышение скорости обновления
+        if (gameSpeed < MAX_GAME_SPEED) {
+            gameSpeed += TIME_STEP;
         }
     }
 
-    public void decreaseSpeed() {
-        if (gameSpeed > 50) {
-            gameSpeed -= 50;
+    public void decreaseSpeed() { //понижение скорости обновления
+        if (gameSpeed > MIN_GAME_SPEED) {
+            gameSpeed -= TIME_STEP;
         }
     }
 
@@ -282,11 +296,11 @@ public class GameModel {
     }
 
     public void setAliveRules(int[] aliveRules) {
-        this.aliveRules = aliveRules;
+        this.aliveRules = Arrays.stream(aliveRules).toArray();
     }
 
     public void setDeadRules(int[] deadRules) {
-        this.deadRules = deadRules;
+        this.deadRules = Arrays.stream(deadRules).toArray();
     }
 
     public void setGenerationsCount(int generationsCount) {

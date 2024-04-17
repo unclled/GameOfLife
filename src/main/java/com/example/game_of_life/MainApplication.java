@@ -4,6 +4,7 @@ import com.example.game_of_life.Pages.MainMenu.MainMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class MainApplication extends Application {
@@ -18,6 +19,7 @@ public class MainApplication extends Application {
         stage.setScene(scene);
         stage.setTitle("Игра \"Жизнь\"");
         stage.setResizable(false);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/background/patterns.png")));
 
         MainMenuController mainMenuController = new MainMenuController();
         stage.show();

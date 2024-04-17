@@ -29,22 +29,20 @@ public class MainMenuController extends MainMenuView {
         setToDefault();
     }
 
-    public void setOnAction() {
+    public void setOnAction() { //устанавливаем слушатели на взаимодействия
         newGameButton.setOnAction(event -> showNewGameWindow());
         loadButton.setOnAction(event -> {
             showLoadGameWindow();
-            mainMenuModel.getNodesForDirectory(saves);
+            mainMenuModel.getSaves(saves);
         });
         infoButton.setOnAction(event -> showInfoWindow());
         exitButton.setOnAction(event -> System.exit(0));
         settingsButton.setOnAction(event -> showSettingsWindow());
-        startGame.setOnAction(event -> {
-            mainMenuModel.startGamePressed(
-                    Integer.parseInt(gridX.getText()),
-                    Integer.parseInt(gridY.getText()),
-                    (int) gameSpeed.getValue(),
-                    generateStart.isSelected());
-        });
+        startGame.setOnAction(event -> mainMenuModel.startGamePressed(
+                mainMenuModel.tryParseGridX(gridX),
+                mainMenuModel.tryParseGridY(gridY),
+                (int) gameSpeed.getValue(),
+                generateStart.isSelected()));
         changeRulesButton.setOnAction(event -> showRulesWindow());
         confirmRules.setOnAction(event -> saveRules());
         deleteSave.setOnAction(event -> mainMenuModel.deleteSave(saves));
@@ -57,7 +55,7 @@ public class MainMenuController extends MainMenuView {
         startWindow.setVisible(false);
         settingsWindow.setVisible(true);
 
-        Preferences prefs = Preferences.userRoot();
+        Preferences prefs = Preferences.userRoot(); //получаем сохраненные данные
         liveCellColor.setValue(Color.valueOf(prefs.get("LIVECELLCOLOR", "white")));
         deadCellColor.setValue(Color.valueOf(prefs.get("DEADCELLCOLOR", "black")));
         cellSizeSlider.setValue(Integer.parseInt(prefs.get("CELLSIZE", "20")));
@@ -66,19 +64,19 @@ public class MainMenuController extends MainMenuView {
         liveExampleColor(liveCellColor.getValue());
         deadExampleColor(deadCellColor.getValue());
 
-        liveCellColor.setOnAction((ActionEvent e) -> {
+        liveCellColor.setOnAction((ActionEvent e) -> { //слушатель на изменения
             Color color = liveCellColor.getValue();
             liveExampleColor(color);
             prefs.put("LIVECELLCOLOR", color.toString());
         });
 
-        deadCellColor.setOnAction((ActionEvent e) -> {
+        deadCellColor.setOnAction((ActionEvent e) -> { //слушатель на изменения
             Color color = deadCellColor.getValue();
             deadExampleColor(color);
             prefs.put("DEADCELLCOLOR", color.toString());
         });
 
-        cellSizeSlider.valueProperty().addListener((observableValue, number, t1) -> {
+        cellSizeSlider.valueProperty().addListener((observableValue, number, t1) -> { //слушатель на изменения
             double cellSize = cellSizeSlider.getValue();
             int temp = mainMenuModel.getMaxFieldSize(cellSize);
             prefs.put("CELLSIZE", String.valueOf((int) cellSize));
@@ -92,6 +90,8 @@ public class MainMenuController extends MainMenuView {
         final int[] i = {0};
         List<Integer> aliveRuleSet = mainMenuModel.getAliveRuleSet();
         List<Integer> deadRuleSet = mainMenuModel.getDeadRuleSet();
+
+        //Устанавливаем чекбоксы для правил, на основе сохраненных данных
         aliveRulesSet.getChildren().forEach(node -> {
             if (node instanceof CheckBox && i[0] < aliveRuleSet.size()) {
                 if (node.getId().equals("alive" + aliveRuleSet.get(i[0]).toString())) {

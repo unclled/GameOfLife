@@ -32,15 +32,16 @@ public class GameController extends GameView implements GameObserver {
 
     public void initialize(boolean needToInitialize) {
         gameModel.setGameObserver(this);
-        initializeView(gameModel.getGridX(), gameModel.getGridY());
 
+        initializeView(gameModel.getGridX(), gameModel.getGridY());
         gameModel.initialize(needToInitialize);
+
         setOnAction();
 
         showAmountOfAliveCells(gameModel.getCellsAlive());
         showCurrentGameSpeed(gameModel.getGameSpeed());
 
-        draw(gameModel.getGrid());
+        drawField(gameModel.getGrid());
     }
 
     public void setData(int gridX, int gridY, int gameSpeed, boolean generateStartCivilization, List<Integer> aliveRuleSet, List<Integer> deadRuleSet) {
@@ -60,20 +61,26 @@ public class GameController extends GameView implements GameObserver {
         gameModel.setGenerationsCount(generationsCount);
     }
 
-    private void setOnAction() {
+    private void setOnAction() { //устанавливаем слушатели на взаимодействия
         play.setOnAction(event -> play());
         pause.setOnAction(event -> pause());
         generateNext.setOnAction(event -> generateNext());
         gameField.setOnMouseClicked(event -> setPointsInGrid(event.getX(), event.getY(), event));
-        gameField.setOnMouseDragged(event -> setPointsInGrid(event.getX(), event.getY(), event));
+        gameField.setOnMouseDragged(event -> {
+            if (gameModel.getSelectedPattern().equals(""))
+                setPointsInGrid(event.getX(), event.getY(), event);
+        });
         patternSelector.setOnMouseClicked(event -> showPatternWindow());
         increaseSpeed.setOnAction(event -> increaseSpeed());
         decreaseSpeed.setOnAction(event -> decreaseSpeed());
         zoomOut.setOnAction(event -> doZoomOut());
         zoomIn.setOnAction(event -> doZoomIn());
-        gameField.setOnScroll(event -> detectScroll(event));
+        gameField.setOnScroll(this::detectScroll);
         drawingMode.setOnMouseClicked(event -> gameModel.setSelectedPattern());
-        saveGame.setOnAction(event -> saveWindow.setVisible(true));
+        saveGame.setOnAction(event -> {
+            pause();
+            saveWindow.setVisible(true);
+        });
         clearField.setOnAction(event -> clearField());
         saveGameToFile.setOnAction(event -> {
             gameModel.saveGame(filename.getText());
@@ -110,7 +117,7 @@ public class GameController extends GameView implements GameObserver {
 
     private void generateNext() {
         if (gameModel.isGameStopped()) {
-            gameModel.tick();
+            gameModel.newGeneration();
         }
     }
 
@@ -120,7 +127,7 @@ public class GameController extends GameView implements GameObserver {
         showAmountOfAliveCells(0);
         showGenerationsCounter(0);
         gameModel.setGrid(new byte[gameModel.getGridX()][gameModel.getGridY()]);
-        draw(gameModel.getGrid());
+        drawField(gameModel.getGrid());
         pause();
     }
 
@@ -137,39 +144,40 @@ public class GameController extends GameView implements GameObserver {
     private void setPointsInGrid(double eventX, double eventY, MouseEvent event) {
         int x = (int) (eventX / cellSize);
         int y = (int) (eventY / cellSize);
-        if (gameModel.getSelectedPattern().equals("")) {
-            if (x >= 0 && y >= 0 && x < gameModel.getGridX() && y < gameModel.getGridY()) {
-                if (event.getButton() == MouseButton.PRIMARY) {
+        if (gameModel.getSelectedPattern().equals("")) { //если паттерн не выбран
+            if (x >= 0 && y >= 0 && x < gameModel.getGridX() && y < gameModel.getGridY()) { //точка ставится в границах поля
+                if (event.getButton() == MouseButton.PRIMARY) { //нажата ЛКМ
                     gameModel.setPointsInGrid(gameModel.getGrid(), x, y, 1);
                     drawPoints(x, y, liveCellColor);
-                } else if (event.getButton() == MouseButton.SECONDARY) {
+                } else if (event.getButton() == MouseButton.SECONDARY) { //нажата ПКМ
                     gameModel.setPointsInGrid(gameModel.getGrid(), x, y, 0);
                     drawPoints(x, y, deadCellColor);
                 }
                 showAmountOfAliveCells(gameModel.getCellsAlive());
             }
-        } else {
+        } else { //паттерн выбран, размещаем его на поле
             try {
                 gameModel.readPattern(x, y, gameModel.getSelectedPattern());
+                showAmountOfAliveCells(gameModel.getCellsAlive());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            draw(gameModel.getGrid());
+            drawField(gameModel.getGrid());
         }
     }
 
     private void detectScroll(ScrollEvent event) {
-        if (event.getDeltaY() < 0) {
-            if (event.isControlDown())
+        if (event.getDeltaY() < 0) { //скролл вниз
+            if (event.isControlDown()) //комбинация ctrl + scrolldown
                 scrollPane.setVvalue(scrollPane.getVvalue() + 0.02);
-            else if (event.isAltDown())
+            else if (event.isAltDown()) //комбинация alt + scrolldown
                 scrollPane.setHvalue(scrollPane.getHvalue() + 0.1);
             else
                 doZoomOut();
-        } else {
-            if (event.isControlDown())
+        } else { //скролл вверх
+            if (event.isControlDown()) //комбинация ctrl + scrollup
                 scrollPane.setVvalue(scrollPane.getVvalue() - 0.02);
-            else if (event.isAltDown())
+            else if (event.isAltDown()) //комбинация alt + scrollup
                 scrollPane.setHvalue(scrollPane.getHvalue() - 0.1);
             else
                 doZoomIn();
@@ -180,7 +188,7 @@ public class GameController extends GameView implements GameObserver {
     public void onTick() {
         showAmountOfAliveCells(gameModel.getCellsAlive());
         showGenerationsCounter(gameModel.getGenerationsCount());
-        draw(gameModel.getGrid());
+        drawField(gameModel.getGrid());
     }
 
     public void onClose() {

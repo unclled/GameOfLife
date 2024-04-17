@@ -84,3 +84,7 @@
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
+
+.input .text-field {
+    -fx-prompt-text-fill: white;
+}
