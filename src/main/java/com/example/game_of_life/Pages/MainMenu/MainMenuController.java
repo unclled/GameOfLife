@@ -1,5 +1,6 @@
 package com.example.game_of_life.Pages.MainMenu;
 
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -23,8 +24,10 @@ public class MainMenuController extends MainMenuView {
     public Button deleteSave;
     public Button loadGame;
     //--------------------------//
+    private HostServices hostServices;
 
     public void initialize() {
+        infoWindow.setStyle("-fx-background-color: transparent" + "; -fx-background: transparent" + "; -fx-border-color: transparent");
         setOnAction();
         setToDefault();
     }
@@ -38,15 +41,11 @@ public class MainMenuController extends MainMenuView {
         infoButton.setOnAction(event -> showInfoWindow());
         exitButton.setOnAction(event -> System.exit(0));
         settingsButton.setOnAction(event -> showSettingsWindow());
-        startGame.setOnAction(event -> mainMenuModel.startGamePressed(
-                mainMenuModel.tryParseGridX(gridX),
-                mainMenuModel.tryParseGridY(gridY),
-                (int) gameSpeed.getValue(),
-                generateStart.isSelected()));
+        startGame.setOnAction(event -> startGamePressed());
         changeRulesButton.setOnAction(event -> showRulesWindow());
         confirmRules.setOnAction(event -> saveRules());
-        deleteSave.setOnAction(event -> mainMenuModel.deleteSave(saves));
-        loadGame.setOnAction(event -> mainMenuModel.loadGamePressed(saves));
+        deleteSave.setOnAction(event -> deleteSavePressed());
+        loadGame.setOnAction(event -> loadGamePressed());
         goBack.setOnAction(event -> setToDefault());
     }
 
@@ -66,14 +65,22 @@ public class MainMenuController extends MainMenuView {
 
         liveCellColor.setOnAction((ActionEvent e) -> { //слушатель на изменения
             Color color = liveCellColor.getValue();
-            liveExampleColor(color);
-            prefs.put("LIVECELLCOLOR", color.toString());
+            if (color.getOpacity() * 255 != 0) {
+                liveExampleColor(color);
+                prefs.put("LIVECELLCOLOR", color.toString());
+                if (color.equals(deadCellColor.getValue()))
+                    showWarning("Цвета мертвой и живой клетки совпадают!", "Измените выбор!");
+            } else showWarning("Прозрачный цвет не может быть установлен!", "Измените выбор!");
         });
 
         deadCellColor.setOnAction((ActionEvent e) -> { //слушатель на изменения
             Color color = deadCellColor.getValue();
-            deadExampleColor(color);
-            prefs.put("DEADCELLCOLOR", color.toString());
+            if (color.getOpacity() * 255 != 0) {
+                deadExampleColor(color);
+                prefs.put("DEADCELLCOLOR", color.toString());
+                if (color.equals(liveCellColor.getValue()))
+                    showWarning("Цвета мертвой и живой клетки совпадают!", "Измените выбор!");
+            } else showWarning("Прозрачный цвет не может быть установлен!", "Измените выбор!");
         });
 
         cellSizeSlider.valueProperty().addListener((observableValue, number, t1) -> { //слушатель на изменения
@@ -127,5 +134,24 @@ public class MainMenuController extends MainMenuView {
         goBack.setVisible(true);
         startWindow.setVisible(false);
         infoWindow.setVisible(true);
+    }
+
+    private void loadGamePressed() {
+        if (!mainMenuModel.loadGamePressed(saves))
+            showWarning("Выберите игру, которую хотите загрузить!", "Внимание!");
+    }
+
+    private void deleteSavePressed() {
+        if (!mainMenuModel.deleteSave(saves))
+            showWarning("Для начала выберите файл для удаления!", "Внимание!");
+    }
+
+    private void startGamePressed() {
+        if (!mainMenuModel.startGamePressed(
+                mainMenuModel.tryParseGridX(gridX),
+                mainMenuModel.tryParseGridY(gridY),
+                (int) gameSpeed.getValue(),
+                generateStart.isSelected()))
+            showWarning("Указаны некорректные размеры поля!", "Ошибка!");
     }
 }

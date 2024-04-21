@@ -1,0 +1,17 @@
+.scroll-bar:vertical {
+    -fx-pref-width: 12;
+    -fx-padding: 3;
+}
+
+.scroll-bar:vertical > .corner {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: white;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: black;
+}

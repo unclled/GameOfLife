@@ -34,25 +34,22 @@ public class MainMenuModel {
         }
     }
 
-    public void deleteSave(ListView<String> saves) { //удаляем выбранное сохранение
+    public boolean deleteSave(ListView<String> saves) { //удаляем выбранное сохранение
         var selectedItem = saves.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             File selectedFile = new File("src/main/java/com/example/game_of_life/Saves/" + selectedItem);
             selectedFile.delete();
             getSaves(saves);
-        }
+        } return false;
     }
 
-    public void loadGamePressed(ListView<String> saves) { //загрузка выбранной игры
-        File selectedFile;
-        try {
-            selectedFile = new File("src/main/java/com/example/game_of_life/Saves/"
-                    + saves
-                    .getSelectionModel()
-                    .getSelectedItem());
-        } catch (Exception e) {
-            return;
-        }
+    public boolean loadGamePressed(ListView<String> saves) { //загрузка выбранной игры
+        var isSelected = saves
+                .getSelectionModel()
+                .getSelectedItem();
+        if (isSelected == null) return false;
+
+        File selectedFile = new File("src/main/java/com/example/game_of_life/Saves/" + isSelected);
 
         try (Scanner scanner = new Scanner(selectedFile)) {
             int gridX = Integer.parseInt(scanner.nextLine());
@@ -75,6 +72,7 @@ public class MainMenuModel {
             System.out.println("Ошибка чтения");
             e.printStackTrace();
         }
+        return true;
     }
 
     private void loadGame(int gridX, int gridY, byte[][] grid, int gameSpeed, int generationsCount) throws IOException {
@@ -86,7 +84,7 @@ public class MainMenuModel {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Игра \"Жизнь\"");
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/background/patterns.png")));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/background/patterns.png"))));
         GameController gameController = fxmlLoader.getController();
 
         getDefaultRules();
@@ -95,17 +93,19 @@ public class MainMenuModel {
                 gridY,
                 grid,
                 gameSpeed,
-                generationsCount);
+                generationsCount,
+                aliveRuleSet,
+                deadRuleSet);
         gameController.showAmountOfAliveCells(generationsCount);
         gameController.initialize(false);
         primaryStage.setOnCloseRequest(event -> gameController.onClose());
         primaryStage.show();
     }
 
-    public void startGamePressed(int gridX, int gridY, int gameSpeed, boolean generateStart) { //создание новой игры
+    public boolean startGamePressed(int gridX, int gridY, int gameSpeed, boolean generateStart) { //создание новой игры
         Preferences prefs = Preferences.userRoot();
         int maxFieldSize = getMaxFieldSize(prefs.getInt("CELLSIZE", 20));
-        if (gridX > maxFieldSize || gridY > maxFieldSize || gridX < 3 || gridY < 3) return;
+        if (gridX > maxFieldSize || gridY > maxFieldSize || gridX < 3 || gridY < 3) return false;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/game_of_life/game_window.fxml"));
         Parent root;
         try {
@@ -118,7 +118,7 @@ public class MainMenuModel {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Игра \"Жизнь\"");
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/background/patterns.png")));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/background/patterns.png"))));
         GameController gameController = fxmlLoader.getController();
 
         getDefaultRules();
@@ -132,6 +132,7 @@ public class MainMenuModel {
         gameController.initialize(true);
         primaryStage.setOnCloseRequest(event -> gameController.onClose());
         primaryStage.show();
+        return true;
     }
 
     public void getDefaultRules() { //получить правила по умолчанию

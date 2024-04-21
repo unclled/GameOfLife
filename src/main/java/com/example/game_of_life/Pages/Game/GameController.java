@@ -53,12 +53,14 @@ public class GameController extends GameView implements GameObserver {
         gameModel.setDeadRules(deadRuleSet.stream().mapToInt(i -> i).toArray());
     }
 
-    public void uploadData(int gridX, int gridY, byte[][] grid, int gameSpeed, int generationsCount) {
+    public void uploadData(int gridX, int gridY, byte[][] grid, int gameSpeed, int generationsCount, List<Integer> aliveRuleSet, List<Integer> deadRuleSet) {
         gameModel.setGridX(gridX);
         gameModel.setGridY(gridY);
         gameModel.setGrid(grid);
         gameModel.setGameSpeed(gameSpeed);
         gameModel.setGenerationsCount(generationsCount);
+        gameModel.setAliveRules(aliveRuleSet.stream().mapToInt(i -> i).toArray());
+        gameModel.setDeadRules(deadRuleSet.stream().mapToInt(i -> i).toArray());
     }
 
     private void setOnAction() { //устанавливаем слушатели на взаимодействия
@@ -83,8 +85,10 @@ public class GameController extends GameView implements GameObserver {
         });
         clearField.setOnAction(event -> clearField());
         saveGameToFile.setOnAction(event -> {
-            gameModel.saveGame(filename.getText());
-            saveWindow.setVisible(false);
+            if (!filename.getText().equals("")) {
+                gameModel.saveGame(filename.getText());
+                saveWindow.setVisible(false);
+            }
         });
         closeSaveWindow.setOnAction(event -> {
             saveWindow.setVisible(false);

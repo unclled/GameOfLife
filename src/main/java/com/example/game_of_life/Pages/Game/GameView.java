@@ -61,6 +61,7 @@ public class GameView {
         gameField.setWidth(gridX * cellSize);
         graphics = gameField.getGraphicsContext2D();
         fieldSize.setText("Размер поля: " + gridX + "x" + gridY);
+        scrollPane.setStyle("-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;");
         for (int i = 0; i < gridX; i++) { //красим поле
             for (int j = 0; j < gridY; j++) {
                 graphics.setFill(deadCellColor);

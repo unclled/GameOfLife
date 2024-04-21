@@ -22,13 +22,12 @@
    <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: transparent;">
       <HBox alignment="CENTER" style="-fx-background-color: transparent;">
          <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent;" stylesheets="@../../../style.css">
-            <styleClass>
-               <String fx:value="scroll-bar" />
-               <String fx:value="corner" />
-               <String fx:value="thumb" />
-               <String fx:value="title" />
-            </styleClass>
             <Canvas fx:id="gameField" height="700.0" width="1200.0" />
+            <styleClass>
+               <String fx:value="corner" />
+               <String fx:value="scroll-bar" />
+               <String fx:value="thumb" />
+            </styleClass>
          </ScrollPane>
       </HBox>
    </VBox>
@@ -197,7 +196,7 @@
          <Cursor fx:constant="DEFAULT" />
       </cursor>
    </Text>
-   <VBox fx:id="patternsWindow" alignment="TOP_CENTER" layoutX="1000.0" prefHeight="686.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #25262b;" visible="false">
+   <VBox fx:id="patternsWindow" alignment="TOP_CENTER" layoutX="1000.0" prefHeight="685.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #25262b;" visible="false">
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Выбор паттернов" textAlignment="CENTER" wrappingWidth="200.0" y="20.0">
          <font>
             <Font name="Segoe UI Bold" size="18.0" />
@@ -699,7 +698,7 @@
                <Insets />
             </VBox.margin>
          </TextField>
-         <Button fx:id="saveGameToFile" mnemonicParsing="false" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: #6169ff; -fx-background-radius: 10;" text="Сохранить" textFill="WHITE">
+         <Button fx:id="saveGameToFile" mnemonicParsing="false" prefHeight="36.0" prefWidth="110.0" style="-fx-background-radius: 10;" styleClass="background-color3" stylesheets="@../../../style.css" text="Сохранить" textFill="WHITE">
             <VBox.margin>
                <Insets />
             </VBox.margin>

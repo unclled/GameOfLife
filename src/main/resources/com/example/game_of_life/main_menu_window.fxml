@@ -7,11 +7,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,37 +25,34 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.game_of_life.Pages.MainMenu.MainMenuController">
-   <ImageView fitHeight="550.0" fitWidth="674.0" pickOnBounds="true">
-      <Image url="@../../../background/caMain.gif" />
-      <effect>
-         <BoxBlur iterations="3" />
-      </effect>
+   <ImageView fitHeight="500.0" fitWidth="600.0" pickOnBounds="true">
+      <Image url="@../../../background/caMain1.gif" />
    </ImageView>
-   <Pane id="helloWindow" layoutX="177.0" layoutY="59.0" prefHeight="435.0" prefWidth="326.0" style="-fx-background-color: #fffff4; -fx-background-radius: 14;">
+   <Pane id="helloWindow" layoutX="137.0" layoutY="33.0" prefHeight="435.0" prefWidth="326.0" style="-fx-background-color: #fffff8; -fx-background-radius: 14;">
       <opaqueInsets>
          <Insets />
       </opaqueInsets>
-      <Text fill="#37407d" layoutY="58.0" text="ИГРА ЖИЗНЬ" textAlignment="CENTER" wrappingWidth="326.0">
+      <Text fill="#37407d" layoutY="52.0" text="ИГРА ЖИЗНЬ" textAlignment="CENTER" wrappingWidth="326.0">
          <font>
             <Font name="Segoe UI Black" size="36.0" />
          </font>
       </Text>
       <VBox fx:id="startWindow" alignment="CENTER" layoutX="28.0" layoutY="75.0" prefHeight="327.0" prefWidth="270.0" spacing="20.0" visible="false">
-         <Button fx:id="newGameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="140.0" style="-fx-background-color: #6169ff;" text="Новая игра" textAlignment="CENTER" textFill="WHITE">
+         <Button fx:id="newGameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="140.0" styleClass="background-color3" stylesheets="@../../../style.css" text="Новая игра" textAlignment="CENTER" textFill="WHITE">
             <font>
-               <Font name="Segoe UI Bold" size="14.0" />
+               <Font name="Segoe UI Bold" size="16.0" />
             </font>
          </Button>
-         <Button fx:id="loadButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #6169ff;" text="Загрузить игру" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <Button fx:id="loadButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" styleClass="background-color3" stylesheets="@../../../style.css" text="Загрузить игру" textAlignment="CENTER" textFill="WHITE" wrapText="true">
             <font>
-               <Font name="Segoe UI Bold" size="14.0" />
+               <Font name="Segoe UI Bold" size="16.0" />
             </font>
          </Button>
          <HBox alignment="CENTER" spacing="54.0">
             <VBox.margin>
                <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
-            <Button fx:id="infoButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #6169ff;" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="infoButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="background-color3" stylesheets="@../../../style.css" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>
@@ -64,7 +62,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="settingsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #6169ff;" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="settingsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="background-color3" stylesheets="@../../../style.css" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>
@@ -75,9 +73,9 @@
                </graphic>
             </Button>
          </HBox>
-         <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #6169ff;" text="Выйти" textAlignment="CENTER" textFill="WHITE">
+         <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="background-color3" stylesheets="@../../../style.css" text="Выйти" textAlignment="CENTER" textFill="WHITE">
             <font>
-               <Font name="Segoe UI Bold" size="14.0" />
+               <Font name="Segoe UI Bold" size="16.0" />
             </font>
             <VBox.margin>
                <Insets />
@@ -127,7 +125,7 @@
             </VBox.margin>
          </Text>
          <Slider fx:id="gameSpeed" majorTickUnit="200.0" max="1000.0" maxHeight="-Infinity" maxWidth="-Infinity" min="50.0" minorTickCount="0" prefHeight="10.0" prefWidth="220.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="50.0" />
-         <CheckBox fx:id="generateStart" mnemonicParsing="false" prefHeight="40.0" prefWidth="368.0" text="Создать начальную &quot;колонию&quot;">
+         <CheckBox fx:id="generateStart" mnemonicParsing="false" prefHeight="40.0" prefWidth="368.0" text="Сгенерировать нулевое поколение" textAlignment="JUSTIFY" textFill="#37407d">
             <font>
                <Font name="Segoe UI" size="14.0" />
             </font>
@@ -138,9 +136,9 @@
                <Insets left="5.0" />
             </VBox.margin>
          </CheckBox>
-         <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="120.0" style="-fx-background-color: #6169ff;" text="Начать игру" textAlignment="CENTER" textFill="WHITE">
+         <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="120.0" styleClass="background-color3" stylesheets="@../../../style.css" text="Начать игру" textAlignment="CENTER" textFill="WHITE">
             <font>
-               <Font name="Segoe UI" size="14.0" />
+               <Font name="Segoe UI Bold" size="16.0" />
             </font>
             <VBox.margin>
                <Insets />
@@ -154,15 +152,15 @@
             </VBox.margin>
          </ListView>
          <HBox alignment="CENTER" maxWidth="200.0" prefHeight="34.0" prefWidth="120.0">
-            <Button fx:id="loadGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="34.0" style="-fx-background-color: #6169ff;" text="Загрузить игру" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Button fx:id="loadGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="34.0" styleClass="background-color3" stylesheets="@../../../style.css" text="Загрузить игру" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Segoe UI Bold" size="14.0" />
                </font>
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="deleteSave" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <Button fx:id="deleteSave" mnemonicParsing="false" styleClass="background-color3" stylesheets="@../../../style.css" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <Image url="@../../../background/delete.png" />
@@ -174,8 +172,168 @@
             </Button>
          </HBox>
       </VBox>
-      <VBox fx:id="infoWindow" alignment="CENTER" layoutX="28.0" layoutY="75.0" prefHeight="327.0" prefWidth="270.0" spacing="12.0" visible="false" />
-      <VBox fx:id="settingsWindow" alignment="CENTER" layoutX="28.0" layoutY="75.0" prefHeight="327.0" prefWidth="270.0" spacing="12.0">
+      <ScrollPane fx:id="infoWindow" hbarPolicy="NEVER" layoutX="28.0" layoutY="75.0" pannable="true" pickOnBounds="false" style="-fx-background-color: transparent;" stylesheets="@../../../scrollpane.css" vbarPolicy="ALWAYS">
+         <VBox alignment="CENTER" focusTraversable="true" prefHeight="327.0" prefWidth="270.0" spacing="12.0" style="-fx-background-color: transparent;">
+            <Text fill="#7b9cff" strokeType="OUTSIDE" strokeWidth="0.0" text="Стандартные правила">
+               <font>
+                  <Font name="Segoe UI Bold" size="16.0" />
+               </font>
+            </Text>
+            <HBox>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Каждая клетка, имеющая менее двух соседей, погибает от одиночества" textAlignment="JUSTIFY" wrappingWidth="272.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/1rule.png" />
+            </ImageView>
+            <HBox>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Каждая клетка, имеющая более трех соседей, погибает от перенаселения" textAlignment="JUSTIFY" wrappingWidth="272.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/2rule.png" />
+            </ImageView>
+            <HBox>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Каждая клетка с двумя или тремя соседями выживает" textAlignment="JUSTIFY" wrappingWidth="272.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/3rule.png" />
+            </ImageView>
+            <HBox>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Каждая ячейка с тремя соседями становится живой" textAlignment="JUSTIFY" wrappingWidth="272.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background/4rule.png" />
+            </ImageView>
+            <Text fill="#7b9cff" strokeType="OUTSIDE" strokeWidth="0.0" text="Управление симуляцией">
+               <font>
+                  <Font name="Segoe UI Bold" size="16.0" />
+               </font>
+            </Text>
+            <HBox spacing="4.0">
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../../../background/decrease.png" />
+               </ImageView>
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../../../background/increase.png" />
+               </ImageView>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Понизить/Повысить скорость" textAlignment="JUSTIFY" wrappingWidth="216.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <HBox spacing="4.0">
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../../../background/play.png" />
+               </ImageView>
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../../../background/pause.png" />
+               </ImageView>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Старт/Пауза симуляции" textAlignment="JUSTIFY" wrappingWidth="224.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <HBox spacing="4.0">
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets right="28.0" />
+                  </HBox.margin>
+                  <Image url="@../../../background/forward.png" />
+               </ImageView>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Сгенерировать следующее поколение" textAlignment="JUSTIFY" wrappingWidth="216.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <HBox spacing="4.0">
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../../../background/zoom_out.png" />
+               </ImageView>
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../../../background/zoom_in.png" />
+               </ImageView>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Отдалить/Приблизить поле (или же scrolldown/scrollup)" textAlignment="JUSTIFY" wrappingWidth="216.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <HBox spacing="4.0">
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets right="28.0" />
+                  </HBox.margin>
+                  <Image url="@../../../background/clear_field.png" />
+               </ImageView>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Очистить поле" textAlignment="JUSTIFY" wrappingWidth="216.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <HBox spacing="4.0">
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets right="28.0" />
+                  </HBox.margin>
+                  <Image url="@../../../background/save-game.png" />
+               </ImageView>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Сохранить игру (если имя сохранения уже существует, сохранение будет перезаписано)" textAlignment="JUSTIFY" wrappingWidth="216.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <HBox>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Для перемещения по полю используйте scrollbar, либо сочетание клавиш: &#10;CTRL + ScrollUp - вверх&#10;CTRL + ScrollDown - вниз&#10;ALT + ScrollUp - влево&#10;ALT + ScrollDown - вправо" textAlignment="JUSTIFY" wrappingWidth="272.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <Text fill="#7b9cff" strokeType="OUTSIDE" strokeWidth="0.0" text="О разработчике">
+               <font>
+                  <Font name="Segoe UI Bold" size="16.0" />
+               </font>
+            </Text>
+            <HBox>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Создатель приложения – Чупраков Данил&#10;Студент 2-го курса ВятГу ФИб-2301-51-00" textAlignment="JUSTIFY" wrappingWidth="272.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Text>
+            </HBox>
+            <HBox>
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../../../background/github.png" />
+               </ImageView>
+               <Hyperlink text="github.com/unclled/GameOfLife" textFill="#37407d">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Hyperlink>
+            </HBox>
+         </VBox>
+      </ScrollPane>
+      <VBox fx:id="settingsWindow" alignment="CENTER" layoutX="28.0" layoutY="75.0" prefHeight="327.0" prefWidth="270.0" spacing="12.0" visible="false">
          <Text fill="#7b9cff" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Настройка цвета">
             <font>
                <Font name="Segoe UI Black" size="16.0" />
@@ -190,7 +348,7 @@
                   <Insets right="30.0" />
                </HBox.margin>
             </Text>
-            <ColorPicker fx:id="deadCellColor" style="-fx-background-color: #6169ff;" styleClass="color-picker" stylesheets="@../../../style.css">
+            <ColorPicker fx:id="deadCellColor" styleClass="background-color3" stylesheets="@../../../style.css">
                <value>
                   <Color />
                </value>
@@ -205,7 +363,7 @@
                   <Insets right="44.0" />
                </HBox.margin>
             </Text>
-            <ColorPicker fx:id="liveCellColor" style="-fx-background-color: #6169ff;" styleClass="color-picker" stylesheets="@../../../style.css" />
+            <ColorPicker fx:id="liveCellColor" styleClass="background-color3" stylesheets="@../../../style.css" />
          </HBox>
          <Pane prefWidth="256.0">
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="71.0" layoutX="100.0" stroke="BLACK" strokeType="INSIDE" width="71.0" />
@@ -237,7 +395,7 @@
             </VBox.margin>
          </Text>
          <Slider fx:id="cellSizeSlider" majorTickUnit="2.0" max="20.0" maxWidth="170.0" min="6.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0" />
-         <Button fx:id="changeRulesButton" mnemonicParsing="false" prefHeight="36.0" style="-fx-background-color: #6169ff;" text="Настройка правил" textFill="WHITE">
+         <Button fx:id="changeRulesButton" mnemonicParsing="false" prefHeight="36.0" styleClass="background-color3" stylesheets="@../../../style.css" text="Настройка правил" textFill="WHITE">
             <font>
                <Font name="Segoe UI Bold" size="14.0" />
             </font>
@@ -359,9 +517,9 @@
                </VBox.margin>
             </Text>
          </VBox>
-         <Button fx:id="confirmRules" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="28.0" style="-fx-background-color: #6169ff;" text="Сохранить" textAlignment="CENTER" textFill="WHITE">
+         <Button fx:id="confirmRules" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" styleClass="background-color3" stylesheets="@../../../style.css" text="Сохранить" textAlignment="CENTER" textFill="WHITE">
             <font>
-               <Font name="Segoe UI" size="14.0" />
+               <Font name="Segoe UI Bold" size="16.0" />
             </font>
             <VBox.margin>
                <Insets top="20.0" />
@@ -381,5 +539,27 @@
       <cursor>
          <Cursor fx:constant="DEFAULT" />
       </cursor>
+   </Pane>
+   <Pane fx:id="warningPane" layoutY="-10.0" prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: white; -fx-background-radius: 10;" visible="false">
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../../../background/error.png" />
+      </ImageView>
+      <HBox layoutX="42.0" layoutY="12.576171875" spacing="8.0">
+         <children>
+            <Text fx:id="errorText" fill="#c90000" strokeType="OUTSIDE" strokeWidth="0.0" text="Ошибка!">
+               <font>
+                  <Font name="Segoe UI Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="warningText" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING TEXT" wrappingWidth="453.95703125">
+               <font>
+                  <Font name="Segoe UI Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="4.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
    </Pane>
 </AnchorPane>

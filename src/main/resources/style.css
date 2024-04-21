@@ -6,6 +6,10 @@
     -fx-background-color: linear-gradient(to top, #25262b, #37407d, #25262b);
 }
 
+.background-color3 {
+    -fx-background-color: radial-gradient(radius 90%, #393f80, #4e5ead);
+}
+
 .scroll-pane .scroll-bar:horizontal {
     -fx-background-color: transparent;
 }
@@ -61,7 +65,7 @@
 }
 
 .check-box:selected .box {
-    -fx-background-color: #6169ff;
+    -fx-background-color: radial-gradient(radius 90%, #393f80, #4e5ead);
 }
 
 .acc-titled-pane .content {

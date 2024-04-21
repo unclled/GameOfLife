@@ -1,26 +1,33 @@
 package com.example.game_of_life.Pages.MainMenu;
 
+import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class MainMenuView {
     //----------Контейнеры----------//
     @FXML public VBox startWindow;
     @FXML public VBox newGameWindow;
     @FXML public VBox loadGameWindow;
-    @FXML public VBox infoWindow;
+    @FXML public ScrollPane infoWindow;
     @FXML public VBox settingsWindow;
     @FXML public VBox rulesWindow;
+    @FXML public Pane warningPane;
 
     //-----Текст и текстовые поля-----//
     @FXML public Text gridXVisualize;
     @FXML public Text gridYVisualize;
     @FXML public Text fieldSizeText;
+    @FXML public Text warningText;
+    @FXML public Text errorText;
     @FXML public TextField gridX;
     @FXML public TextField gridY;
 
@@ -122,5 +129,38 @@ public class MainMenuView {
                 ((Rectangle) node).setFill(dead);
             }
         });
+    }
+
+    public void showWarning(String message, String error) { //показать ошибку
+        if (!warningPane.isVisible() || (warningPane.isVisible() && message != warningText.getText() || error != errorText.getText())) {
+            warningText.setText(message);
+            errorText.setText(error);
+            warningPane.setVisible(true);
+
+            double startY = warningPane.getLayoutY() - warningPane.getBoundsInParent().getHeight();
+
+            //анимация появления
+            TranslateTransition translateTransitionShow = new TranslateTransition(Duration.seconds(1), warningPane);
+            warningPane.setLayoutY(startY);
+            translateTransitionShow.setToY(-10 - startY);
+
+            //после окончания анимации появления
+            translateTransitionShow.setOnFinished(event -> {
+                //задержка перед анимацией исчезновения
+                PauseTransition delay = new PauseTransition(Duration.seconds(5));
+                delay.setOnFinished(event1 -> {
+                    TranslateTransition translateTransitionHide = new TranslateTransition(Duration.seconds(1), warningPane);
+                    translateTransitionHide.setToY(startY);
+
+                    translateTransitionHide.setOnFinished(event2 -> warningPane.setVisible(false));
+
+                    translateTransitionHide.play();
+                });
+
+                delay.play();
+            });
+
+            translateTransitionShow.play();
+        }
     }
 }
