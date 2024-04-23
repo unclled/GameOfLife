@@ -40,7 +40,9 @@ public class MainMenuModel {
             File selectedFile = new File("src/main/java/com/example/game_of_life/Saves/" + selectedItem);
             selectedFile.delete();
             getSaves(saves);
-        } return false;
+            return true;
+        }
+        return false;
     }
 
     public boolean loadGamePressed(ListView<String> saves) { //загрузка выбранной игры

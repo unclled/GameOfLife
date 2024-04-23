@@ -715,4 +715,24 @@
          </graphic>
       </Button>
    </Pane>
+   <Pane fx:id="warningPane" layoutY="-10.0" prefHeight="40.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-background-radius: 10;" visible="false">
+      <HBox alignment="CENTER" layoutX="42.0" layoutY="10.0" prefHeight="24.0" prefWidth="1145.0" spacing="8.0">
+         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../../background/error.png" />
+         </ImageView>
+         <Text fx:id="errorText" fill="#c90000" strokeType="OUTSIDE" strokeWidth="0.0" text="Ошибка!">
+            <font>
+               <Font name="Segoe UI Bold" size="18.0" />
+            </font>
+         </Text>
+         <Text fx:id="warningText" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING TEXT">
+            <font>
+               <Font name="Segoe UI Bold" size="14.0" />
+            </font>
+            <HBox.margin>
+               <Insets top="2.0" />
+            </HBox.margin>
+         </Text>
+      </HBox>
+   </Pane>
 </Pane>

@@ -1,5 +1,6 @@
 package com.example.game_of_life.Pages.Game;
 
+import com.example.game_of_life.Pages.ShowWarning;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class GameController extends GameView implements GameObserver {
     private final GameModel gameModel = new GameModel();
+    private ShowWarning showWarning;
 
     //--------------------------//
     public Button play;
@@ -28,13 +30,15 @@ public class GameController extends GameView implements GameObserver {
     public Button closeSaveWindow;
     //--------------------------//
 
-    public GameController() {}
+    public GameController() {
+    }
 
     public void initialize(boolean needToInitialize) {
         gameModel.setGameObserver(this);
 
         initializeView(gameModel.getGridX(), gameModel.getGridY());
         gameModel.initialize(needToInitialize);
+        showWarning = new ShowWarning(warningPane, warningText, errorText);
 
         setOnAction();
 
@@ -84,12 +88,7 @@ public class GameController extends GameView implements GameObserver {
             saveWindow.setVisible(true);
         });
         clearField.setOnAction(event -> clearField());
-        saveGameToFile.setOnAction(event -> {
-            if (!filename.getText().equals("")) {
-                gameModel.saveGame(filename.getText());
-                saveWindow.setVisible(false);
-            }
-        });
+        saveGameToFile.setOnAction(event -> saveGameToFile());
         closeSaveWindow.setOnAction(event -> {
             saveWindow.setVisible(false);
             filename.setText("");
@@ -99,10 +98,22 @@ public class GameController extends GameView implements GameObserver {
             VBox vBox = (VBox) ((ScrollPane) titledPane.getContent()).getContent();
             vBox.getChildren().forEach(node -> {
                 if (node instanceof ImageView imageView) {
-                    imageView.setOnMouseClicked(gameModel::handleImageClick);
+                    imageView.setOnMouseClicked(event -> {
+                        if (gameModel.handleImageClick(event)) {
+                            showWarning.showWarning("Выбранный паттерн превышает размеры поля!", "Внимание!");
+                        }
+                    });
                 }
             });
         });
+    }
+
+    private void saveGameToFile() {
+        if (!gameModel.saveGame(filename.getText())) {
+            showWarning.showWarning("Укажите имя для сохранения!", "Ошибка!");
+        } else {
+            saveWindow.setVisible(false);
+        }
     }
 
     private void play() {

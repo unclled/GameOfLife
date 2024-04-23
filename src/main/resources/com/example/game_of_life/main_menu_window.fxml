@@ -302,6 +302,23 @@
                   </font>
                </Text>
             </HBox>
+            <HBox spacing="4.0">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="28.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../background/patterns.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Окно паттернов (после открытия окна паттернов, выберите интересующий раздел, и, нажав на понравившийся паттерн, выбор сохранится и вы сможете разместить его на игровом поле)" textAlignment="JUSTIFY" wrappingWidth="216.0">
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
             <HBox>
                <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Для перемещения по полю используйте scrollbar, либо сочетание клавиш: &#10;CTRL + ScrollUp - вверх&#10;CTRL + ScrollDown - вниз&#10;ALT + ScrollUp - влево&#10;ALT + ScrollDown - вправо" textAlignment="JUSTIFY" wrappingWidth="272.0">
                   <font>

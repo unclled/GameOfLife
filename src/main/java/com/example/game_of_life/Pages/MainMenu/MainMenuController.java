@@ -1,6 +1,6 @@
 package com.example.game_of_life.Pages.MainMenu;
 
-import javafx.application.HostServices;
+import com.example.game_of_life.Pages.ShowWarning;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -11,6 +11,7 @@ import java.util.prefs.Preferences;
 
 public class MainMenuController extends MainMenuView {
     private final MainMenuModel mainMenuModel = new MainMenuModel();
+    private ShowWarning showWarning;
 
     //--------------------------//
     public Button newGameButton;
@@ -24,12 +25,12 @@ public class MainMenuController extends MainMenuView {
     public Button deleteSave;
     public Button loadGame;
     //--------------------------//
-    private HostServices hostServices;
 
     public void initialize() {
         infoWindow.setStyle("-fx-background-color: transparent" + "; -fx-background: transparent" + "; -fx-border-color: transparent");
         setOnAction();
         setToDefault();
+        showWarning = new ShowWarning(warningPane, warningText, errorText);
     }
 
     public void setOnAction() { //устанавливаем слушатели на взаимодействия
@@ -67,20 +68,24 @@ public class MainMenuController extends MainMenuView {
             Color color = liveCellColor.getValue();
             if (color.getOpacity() * 255 != 0) {
                 liveExampleColor(color);
-                prefs.put("LIVECELLCOLOR", color.toString());
-                if (color.equals(deadCellColor.getValue()))
-                    showWarning("Цвета мертвой и живой клетки совпадают!", "Измените выбор!");
-            } else showWarning("Прозрачный цвет не может быть установлен!", "Измените выбор!");
+                if (color.equals(deadCellColor.getValue())) {
+                    showWarning.showWarning("Цвета мертвой и живой клетки совпадают!", "Измените выбор!");
+                } else {
+                    prefs.put("LIVECELLCOLOR", color.toString());
+                }
+            } else showWarning.showWarning("Прозрачный цвет не может быть установлен!", "Измените выбор!");
         });
 
         deadCellColor.setOnAction((ActionEvent e) -> { //слушатель на изменения
             Color color = deadCellColor.getValue();
             if (color.getOpacity() * 255 != 0) {
                 deadExampleColor(color);
-                prefs.put("DEADCELLCOLOR", color.toString());
-                if (color.equals(liveCellColor.getValue()))
-                    showWarning("Цвета мертвой и живой клетки совпадают!", "Измените выбор!");
-            } else showWarning("Прозрачный цвет не может быть установлен!", "Измените выбор!");
+                if (color.equals(liveCellColor.getValue())) {
+                    showWarning.showWarning("Цвета мертвой и живой клетки совпадают!", "Измените выбор!");
+                } else {
+                    prefs.put("DEADCELLCOLOR", color.toString());
+                }
+            } else showWarning.showWarning("Прозрачный цвет не может быть установлен!", "Измените выбор!");
         });
 
         cellSizeSlider.valueProperty().addListener((observableValue, number, t1) -> { //слушатель на изменения
@@ -138,12 +143,12 @@ public class MainMenuController extends MainMenuView {
 
     private void loadGamePressed() {
         if (!mainMenuModel.loadGamePressed(saves))
-            showWarning("Выберите игру, которую хотите загрузить!", "Внимание!");
+            showWarning.showWarning("Выберите игру, которую хотите загрузить!", "Внимание!");
     }
 
     private void deleteSavePressed() {
         if (!mainMenuModel.deleteSave(saves))
-            showWarning("Для начала выберите файл для удаления!", "Внимание!");
+            showWarning.showWarning("Для начала выберите файл для удаления!", "Внимание!");
     }
 
     private void startGamePressed() {
@@ -152,6 +157,6 @@ public class MainMenuController extends MainMenuView {
                 mainMenuModel.tryParseGridY(gridY),
                 (int) gameSpeed.getValue(),
                 generateStart.isSelected()))
-            showWarning("Указаны некорректные размеры поля!", "Ошибка!");
+            showWarning.showWarning("Указаны некорректные размеры поля!", "Ошибка!");
     }
 }

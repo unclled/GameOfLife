@@ -24,6 +24,7 @@ public class GameView {
     @FXML public ScrollPane scrollPane;
     @FXML public Accordion accordion;
     @FXML public Pane saveWindow;
+    @FXML public Pane warningPane;
 
     @FXML public VBox patternsWindow;
     @FXML public VBox spaceships;
@@ -39,6 +40,8 @@ public class GameView {
     @FXML public Text showSpeed;
     @FXML public Text fieldSize;
     @FXML public Text cellsAlive;
+    @FXML public Text warningText;
+    @FXML public Text errorText;
     @FXML public TextField filename;
     //---------------------------------//
 
@@ -74,16 +77,12 @@ public class GameView {
         int gridY = grid[0].length;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < gridY; j++) {
-                int y = j;
-                if (j >= gridY) {
-                    y = j % gridY; //обработка цикличности по Y
-                }
-                if (grid[i][y] == 1) { //клетка живая
+                if (grid[i][j] == 1) { //клетка живая
                     graphics.setFill(liveCellColor);
-                    graphics.fillRect((i * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
+                    graphics.fillRect((i * cellSize) + 1, (j * cellSize) + 1, cellSize - outline, cellSize - outline);
                 } else { //клетка мертвая
                     graphics.setFill(deadCellColor);
-                    graphics.fillRect((i * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
+                    graphics.fillRect((i * cellSize) + 1, (j * cellSize) + 1, cellSize - outline, cellSize - outline);
                 }
             }
         }

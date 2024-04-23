@@ -158,7 +158,7 @@ public class GameModel {
         }
     }
 
-    public void handleImageClick(MouseEvent event) { //обработка нажатия на картинку паттерна
+    public boolean handleImageClick(MouseEvent event) { //обработка нажатия на картинку паттерна
         setSelectedPattern();
 
         ImageView imageView = (ImageView) event.getSource();
@@ -172,6 +172,26 @@ public class GameModel {
             symbol = imageName.charAt(length);
         }
         selectedPattern.reverse();
+        return isPatternBiggerField();
+    }
+
+    private boolean isPatternBiggerField() { //проверяем, превышает ли паттерн размер поля
+        String filePath = "src/main/java/com/example/game_of_life/Patterns/" + selectedPattern.toString() + ".txt";
+        try {
+            File file = new File(filePath);
+            FileInputStream fis = new FileInputStream(file);
+            Scanner scanner = new Scanner(fis);
+
+            String line = scanner.nextLine();
+            if (line.length() > gridX || line.length() > gridY) {
+                fis.close();
+                return true;
+            }
+            fis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void setPointsInGrid(byte[][] grid, int x, int y, int action) {
@@ -184,10 +204,10 @@ public class GameModel {
         }
     }
 
-    public void saveGame(String filename) { //сохранение игры в файл
+    public boolean saveGame(String filename) { //сохранение игры в файл
         stopGame();
 
-        if (filename.equals("")) return;
+        if (filename.equals("")) return false;
 
         try (PrintWriter writer = new PrintWriter("src/main/java/com/example/game_of_life/Saves/" + filename + ".txt")) {
             writer.println(gridX);
@@ -203,6 +223,7 @@ public class GameModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     public void increaseSpeed() { //повышение скорости обновления
