@@ -30,8 +30,7 @@ public class GameController extends GameView implements GameObserver {
     public Button closeSaveWindow;
     //--------------------------//
 
-    public GameController() {
-    }
+    public GameController() {}
 
     public void initialize(boolean needToInitialize) {
         gameModel.setGameObserver(this);
@@ -146,12 +145,12 @@ public class GameController extends GameView implements GameObserver {
         pause();
     }
 
-    public void increaseSpeed() {
+    private void increaseSpeed() {
         gameModel.increaseSpeed();
         showCurrentGameSpeed(gameModel.getGameSpeed());
     }
 
-    public void decreaseSpeed() {
+    private void decreaseSpeed() {
         gameModel.decreaseSpeed();
         showCurrentGameSpeed(gameModel.getGameSpeed());
     }

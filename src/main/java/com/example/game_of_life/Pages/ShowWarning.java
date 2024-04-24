@@ -7,10 +7,10 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class ShowWarning {
-    private Pane warningPane;
+    private final Pane warningPane;
 
-    private Text warningText;
-    private Text errorText;
+    private final Text warningText;
+    private final Text errorText;
 
     private TranslateTransition translateTransitionShow;
     private TranslateTransition translateTransitionHide;

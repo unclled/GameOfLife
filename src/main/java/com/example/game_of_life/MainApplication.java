@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class MainApplication extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -18,7 +20,7 @@ public class MainApplication extends Application {
         stage.setScene(scene);
         stage.setTitle("Игра \"Жизнь\"");
         stage.setResizable(false);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/background/patterns.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/background/patterns.png"))));
 
         stage.show();
     }

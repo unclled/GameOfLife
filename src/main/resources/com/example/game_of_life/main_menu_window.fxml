@@ -303,21 +303,19 @@
                </Text>
             </HBox>
             <HBox spacing="4.0">
-               <children>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets right="28.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../background/patterns.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Окно паттернов (после открытия окна паттернов, выберите интересующий раздел, и, нажав на понравившийся паттерн, выбор сохранится и вы сможете разместить его на игровом поле)" textAlignment="JUSTIFY" wrappingWidth="216.0">
-                     <font>
-                        <Font name="Segoe UI" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
+               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets right="28.0"/>
+                  </HBox.margin>
+                  <Image url="@../../../background/patterns.png"/>
+               </ImageView>
+               <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0"
+                     text="Окно паттернов (после открытия окна паттернов, выберите интересующий раздел, и, нажав на понравившийся паттерн, выбор сохранится и вы сможете разместить его на игровом поле)"
+                     textAlignment="JUSTIFY" wrappingWidth="216.0">
+                  <font>
+                     <Font name="Segoe UI" size="14.0"/>
+                  </font>
+               </Text>
             </HBox>
             <HBox>
                <Text fill="#37407d" strokeType="OUTSIDE" strokeWidth="0.0" text="Для перемещения по полю используйте scrollbar, либо сочетание клавиш: &#10;CTRL + ScrollUp - вверх&#10;CTRL + ScrollDown - вниз&#10;ALT + ScrollUp - влево&#10;ALT + ScrollDown - вправо" textAlignment="JUSTIFY" wrappingWidth="272.0">
@@ -562,21 +560,20 @@
          <Image url="@../../../background/error.png" />
       </ImageView>
       <HBox layoutX="42.0" layoutY="12.576171875" spacing="8.0">
-         <children>
-            <Text fx:id="errorText" fill="#c90000" strokeType="OUTSIDE" strokeWidth="0.0" text="Ошибка!">
-               <font>
-                  <Font name="Segoe UI Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="warningText" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING TEXT" wrappingWidth="453.95703125">
-               <font>
-                  <Font name="Segoe UI Bold" size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="4.0" />
-               </HBox.margin>
-            </Text>
-         </children>
+         <Text fx:id="errorText" fill="#c90000" strokeType="OUTSIDE" strokeWidth="0.0" text="Ошибка!">
+            <font>
+               <Font name="Segoe UI Bold" size="18.0"/>
+            </font>
+         </Text>
+         <Text fx:id="warningText" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING TEXT"
+               wrappingWidth="453.95703125">
+            <font>
+               <Font name="Segoe UI Bold" size="14.0"/>
+            </font>
+            <HBox.margin>
+               <Insets top="4.0"/>
+            </HBox.margin>
+         </Text>
       </HBox>
    </Pane>
 </AnchorPane>

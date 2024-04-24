@@ -33,7 +33,7 @@ public class MainMenuController extends MainMenuView {
         showWarning = new ShowWarning(warningPane, warningText, errorText);
     }
 
-    public void setOnAction() { //устанавливаем слушатели на взаимодействия
+    private void setOnAction() { //устанавливаем слушатели на взаимодействия
         newGameButton.setOnAction(event -> showNewGameWindow());
         loadButton.setOnAction(event -> {
             showLoadGameWindow();
@@ -50,7 +50,7 @@ public class MainMenuController extends MainMenuView {
         goBack.setOnAction(event -> setToDefault());
     }
 
-    public void showSettingsWindow() {
+    private void showSettingsWindow() {
         goBack.setVisible(true);
         startWindow.setVisible(false);
         settingsWindow.setVisible(true);
@@ -128,7 +128,7 @@ public class MainMenuController extends MainMenuView {
         goBack.setDisable(true);
     }
 
-    public void saveRules() {
+    private void saveRules() {
         mainMenuModel.saveRules(aliveRulesSet, deadRulesSet);
         rulesWindow.setVisible(false);
         settingsWindow.setDisable(false);
