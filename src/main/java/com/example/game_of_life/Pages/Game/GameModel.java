@@ -4,11 +4,10 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -115,14 +114,12 @@ public class GameModel {
         return sum;
     }
 
-    public void readPattern(int x, int y, String pattern) throws IOException { //считываем паттерн из файла
+    public void readPattern(int x, int y, String pattern) throws IOException {
         int saveX = x;
-        String filePath = "src/main/java/com/example/game_of_life/Patterns/" + pattern + ".txt";
+        String patternFilePath = "/Patterns/" + pattern + ".txt";
 
-        try {
-            File file = new File(filePath);
-            FileInputStream fis = new FileInputStream(file);
-            Scanner scanner = new Scanner(fis);
+        try (InputStream is = this.getClass().getResourceAsStream(patternFilePath);
+             Scanner scanner = new Scanner(Objects.requireNonNull(is))) {
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -150,9 +147,6 @@ public class GameModel {
                 }
                 y++;
             }
-
-            scanner.close();
-            fis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -176,18 +170,16 @@ public class GameModel {
     }
 
     private boolean isPatternBiggerField() { //проверяем, превышает ли паттерн размер поля
-        String filePath = "src/main/java/com/example/game_of_life/Patterns/" + selectedPattern.toString() + ".txt";
-        try {
-            File file = new File(filePath);
-            FileInputStream fis = new FileInputStream(file);
-            Scanner scanner = new Scanner(fis);
+        String patternFilePath = "/Patterns/" + selectedPattern.toString() + ".txt";
 
+        try (InputStream is = this.getClass().getResourceAsStream(patternFilePath)) {
+            if (is == null) return false;
+
+            Scanner scanner = new Scanner(is);
             String line = scanner.nextLine();
-            if (line.length() > gridX || line.length() > gridY) {
-                fis.close();
-                return true;
-            }
-            fis.close();
+
+            if (line.length() > gridX || line.length() > gridY) return true;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -204,17 +196,28 @@ public class GameModel {
         }
     }
 
-    public boolean saveGame(String filename) { //сохранение игры в файл
+    public boolean saveGame(String filename) {
         stopGame();
 
-        if (filename.equals("")) return false;
+        if (filename.isEmpty()) return false;
 
-        try (PrintWriter writer = new PrintWriter("src/main/java/com/example/game_of_life/Saves/" + filename + ".txt")) {
+        String userHome = System.getProperty("user.home"); //определяем путь к директории пользователя
+        String savesDir = Paths.get(userHome, "GameOfLife", "Saves").toString(); //путь к папке Saves в директории пользователя
+
+        //создаем директорию Saves если ее не существует
+        File savesDirectory = new File(savesDir);
+        if (!savesDirectory.exists())
+            if (!savesDirectory.mkdirs()) return false;
+
+        //путь к файлу сохранения
+        String savePath = Paths.get(savesDir, filename + ".txt").toString();
+
+        try (PrintWriter writer = new PrintWriter(savePath)) {
             writer.println(gridX);
             writer.println(gridY);
-            for (byte[] bytes : grid) {
-                for (byte aByte : bytes) {
-                    writer.print(aByte);
+            for (byte[] row : grid) {
+                for (byte cell : row) {
+                    writer.print(cell);
                 }
                 writer.println();
             }
@@ -222,7 +225,9 @@ public class GameModel {
             writer.println(generationsCount);
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
+
         return true;
     }
 

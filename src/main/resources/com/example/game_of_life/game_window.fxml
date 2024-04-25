@@ -232,73 +232,73 @@
                        <String fx:value="thumb" />
                     </styleClass>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/35P4H1V1.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/35P4H1V1.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/55P9H3V0.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/55P9H3V0.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                        <VBox.margin>
                           <Insets bottom="-30.0" top="-30.0" />
                        </VBox.margin>
-                       <Image url="@../../../patterns/Spaceships/70P2H1V01.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/70P2H1V01.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/86P6H3V0.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/86P6H3V0.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                        <VBox.margin>
                           <Insets bottom="-30.0" top="-30.0" />
                        </VBox.margin>
-                       <Image url="@../../../patterns/Spaceships/117P9H3V0.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/117P9H3V0.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/119P4H1V0.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/119P4H1V0.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/186P7H2V0.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/186P7H2V0.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Crane.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Crane.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                        <VBox.margin>
                           <Insets bottom="-30.0" top="-30.0" />
                        </VBox.margin>
-                       <Image url="@../../../patterns/Spaceships/Doo-dah.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Doo-dah.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Dragon.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Dragon.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Enterprise.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Enterprise.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Glider-emulator.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Glider-emulator.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Hammerhead.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Hammerhead.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Lobster.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Lobster.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Orion.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Orion.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Snail.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Snail.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Spider.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Spider.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Taco.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Taco.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Weekender.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Weekender.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Spaceships/Wings.png" />
+                       <Image url="@../../../PatternsPics/Spaceships/Wings.png" />
                     </ImageView>
                  </VBox>
               </ScrollPane>
@@ -310,64 +310,64 @@
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
                  <VBox fx:id="methuselahs" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/7468M.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/7468M.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/24827M.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/24827M.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/35201M.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/35201M.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/47575M.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/47575M.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/52513M.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/52513M.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Acorn.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Acorn.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Blonk-tie.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Blonk-tie.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Bloom.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Bloom.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Ed.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Ed.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Engineered-diehard.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Engineered-diehard.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Eve.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Eve.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Gliders-by-the-dozen.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Gliders-by-the-dozen.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Iwona.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Iwona.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Jaydot.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Jaydot.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/One-Cell-Thick.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/One-Cell-Thick.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Pi-heptomino.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Pi-heptomino.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Queen-bee.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Queen-bee.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Switch-engine.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Switch-engine.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Thunderbird.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Thunderbird.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Methuselahs/Wilma.png" />
+                       <Image url="@../../../PatternsPics/Methuselahs/Wilma.png" />
                     </ImageView>
                  </VBox>
               </ScrollPane>
@@ -379,94 +379,94 @@
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
                  <VBox fx:id="oscillators" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/30P25.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/30P25.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/32P21.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/32P21.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/34P14.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/34P14.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/34P20.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/34P20.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/42P38.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/42P38.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/44P10.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/44P10.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/48P221.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/48P221.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/52P44.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/52P44.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/56P27.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/56P27.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/68P9.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/68P9.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/68P32.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/68P32.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/72P21.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/72P21.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/72P68.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/72P68.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/98P25.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/98P25.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/101.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/101.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/110P62.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/110P62.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/112P15.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/112P15.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/128P102.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/128P102.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Achimsp16.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Achimsp16.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Bi-pentadecathlon1.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Bi-pentadecathlon1.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Bracket-pulsar.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Bracket-pulsar.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Clock.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Clock.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Cross-2.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Cross-2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Eye-of-Sauron.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Eye-of-Sauron.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Kok's-galaxy.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Kok's-galaxy.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/p5-diamond.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/p5-diamond.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/p60-glider-shuttle.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/p60-glider-shuttle.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Pulsar.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Pulsar.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Quasar.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Quasar.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Oscillators/Star.png" />
+                       <Image url="@../../../PatternsPics/Oscillators/Star.png" />
                     </ImageView>
                  </VBox>
               </ScrollPane>
@@ -478,55 +478,55 @@
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
                  <VBox fx:id="puffers" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Backrake1.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Backrake1.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Backrake2.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Backrake2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Backrake3.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Backrake3.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Blinker-puffer1.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Blinker-puffer1.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Blinker-puffer2.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Blinker-puffer2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Block-laying-switch-engine.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Block-laying-switch-engine.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Frothing-puffer.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Frothing-puffer.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Hivenudger2.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Hivenudger2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Noah_s-ark.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Noahs_s-ark.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/p28-block-puffer.png" />
+                       <Image url="@../../../PatternsPics/Puffers/p28-block-puffer.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/p112-puffer.png" />
+                       <Image url="@../../../PatternsPics/Puffers/p112-puffer.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/puffer1.png" />
+                       <Image url="@../../../PatternsPics/Puffers/puffer1.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/puffer2.png" />
+                       <Image url="@../../../PatternsPics/Puffers/puffer2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Pufferfish.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Pufferfish.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Slow-puffer1.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Slow-puffer1.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Slow-puffer2.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Slow-puffer2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Puffers/Space-rake.png" />
+                       <Image url="@../../../PatternsPics/Puffers/Space-rake.png" />
                     </ImageView>
                  </VBox>
               </ScrollPane>
@@ -538,58 +538,58 @@
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
                  <VBox fx:id="guns" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/AK-94.png" />
+                       <Image url="@../../../PatternsPics/Guns/AK-94.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/B-52-bomber.png" />
+                       <Image url="@../../../PatternsPics/Guns/B-52-bomber.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Bi-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Bi-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Gosper-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Gosper-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/hotcrystal-reaction.png" />
+                       <Image url="@../../../PatternsPics/Guns/hotcrystal-reaction.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/New-gun1.png" />
+                       <Image url="@../../../PatternsPics/Guns/New-gun1.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/New-gun2.png" />
+                       <Image url="@../../../PatternsPics/Guns/New-gun2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/p4-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/p4-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Period-15-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Period-15-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Period-44-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Period-44-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Period-44-MWSS-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Period-44-MWSS-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Period-45-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Period-45-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Period-88-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Period-88-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Period-117-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Period-117-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Period-156-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Period-156-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Period-256-glider-gun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Period-256-glider-gun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Twogun.png" />
+                       <Image url="@../../../PatternsPics/Guns/Twogun.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Guns/Vacuum.png" />
+                       <Image url="@../../../PatternsPics/Guns/Vacuum.png" />
                     </ImageView>
                  </VBox>
               </ScrollPane>
@@ -601,31 +601,31 @@
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
                  <VBox fx:id="gardenOfEden" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Achim-Flammenkamp.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Achim-Flammenkamp.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Achim-Flammenkamp2.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Achim-Flammenkamp2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Marijn-Heule.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Marijn-Heule.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Nicolay-Beluchenko.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Nicolay-Beluchenko.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Nicolay-Beluchenko2.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Nicolay-Beluchenko2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Roger-Banks.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Roger-Banks.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Steven-Eker.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Steven-Eker.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Steven-Eker2.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Steven-Eker2.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Garden-of-Eden/Steven-Eker3.png" />
+                       <Image url="@../../../PatternsPics/Garden-of-Eden/Steven-Eker3.png" />
                     </ImageView>
                  </VBox>
               </ScrollPane>
@@ -637,37 +637,37 @@
               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@../../../scrollbar.css">
                  <VBox fx:id="conduits" alignment="CENTER" prefHeight="547.0" prefWidth="180.0" spacing="30.0" style="-fx-background-color: #25262b;">
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/BNE14T30.png" />
+                       <Image url="@../../../PatternsPics/Conduits/BNE14T30.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/Bronco.png" />
+                       <Image url="@../../../PatternsPics/Conduits/Bronco.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/Bx125.png" />
+                       <Image url="@../../../PatternsPics/Conduits/Bx125.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/Bx222.png" />
+                       <Image url="@../../../PatternsPics/Conduits/Bx222.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/Callahan-G-to-H.png" />
+                       <Image url="@../../../PatternsPics/Conduits/Callahan-G-to-H.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/F131.png" />
+                       <Image url="@../../../PatternsPics/Conduits/F131.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/F166.png" />
+                       <Image url="@../../../PatternsPics/Conduits/F166.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/Lx73.png" />
+                       <Image url="@../../../PatternsPics/Conduits/Lx73.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/Lx84.png" />
+                       <Image url="@../../../PatternsPics/Conduits/Lx84.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/p4-syringe.png" />
+                       <Image url="@../../../PatternsPics/Conduits/p4-syringe.png" />
                     </ImageView>
                     <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../../../patterns/Conduits/Speed-tunnel.png" />
+                       <Image url="@../../../PatternsPics/Conduits/Speed-tunnel.png" />
                     </ImageView>
                  </VBox>
               </ScrollPane>

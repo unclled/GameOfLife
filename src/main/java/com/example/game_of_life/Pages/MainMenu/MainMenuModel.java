@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
@@ -21,8 +25,11 @@ public class MainMenuModel {
     private List<Integer> aliveRuleSet = new ArrayList<>();
     private List<Integer> deadRuleSet = new ArrayList<>();
 
-    public void getSaves(ListView<String> saves) { //получаем все существующие сохранения
-        File directory = new File("src/main/java/com/example/game_of_life/Saves");
+    public void getSaves(ListView<String> saves) { //получаем список сохранений
+        String userHome = System.getProperty("user.home"); //определяем путь к директории пользователя
+        String savesPath = Paths.get(userHome, "GameOfLife", "Saves").toString(); //путь к папке Saves в директории пользователя
+
+        File directory = new File(savesPath);
         saves.getItems().clear();
 
         if (directory.exists() && directory.isDirectory()) {
@@ -34,45 +41,58 @@ public class MainMenuModel {
         }
     }
 
-    public boolean deleteSave(ListView<String> saves) { //удаляем выбранное сохранение
+    public boolean deleteSave(ListView<String> saves) {
         var selectedItem = saves.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            File selectedFile = new File("src/main/java/com/example/game_of_life/Saves/" + selectedItem);
-            selectedFile.delete();
-            getSaves(saves);
-            return true;
+            String userHome = System.getProperty("user.home"); //определяем путь к директории пользователя
+            String savesPath = Paths.get(userHome, "GameOfLife", "Saves").toString(); //путь к папке Saves в директории пользователя
+
+            //определяем путь к файлу сохранения
+            File selectedFile = new File(Paths.get(savesPath, selectedItem).toString());
+            if (selectedFile.exists()) {
+                if (selectedFile.delete()) {
+                    getSaves(saves); //обновляем список сохранений после удаления
+                    return true;
+                }
+            }
         }
         return false;
     }
 
-    public boolean loadGamePressed(ListView<String> saves) { //загрузка выбранной игры
-        var isSelected = saves
-                .getSelectionModel()
-                .getSelectedItem();
-        if (isSelected == null) return false;
+    public boolean loadGamePressed(ListView<String> saves) {
+        var selectedItem = saves.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) return false;
 
-        File selectedFile = new File("src/main/java/com/example/game_of_life/Saves/" + isSelected);
+        String userHome = System.getProperty("user.home"); //определяем путь к директории пользователя
+        Path savesPath = Paths.get(userHome, "GameOfLife", "Saves"); //путь к папке Saves в директории пользователя
 
-        try (Scanner scanner = new Scanner(selectedFile)) {
-            int gridX = Integer.parseInt(scanner.nextLine());
-            int gridY = Integer.parseInt(scanner.nextLine());
+        Path saveFilePath = savesPath.resolve(selectedItem); //определяем путь к файлу сохранения
 
-            byte[][] grid = new byte[gridX][gridY];
-            for (int i = 0; i < gridX; i++) {
-                String line = scanner.nextLine();
-                for (int j = 0; j < gridY; j++) {
-                    char c = line.charAt(j);
-                    grid[i][j] = (byte) (c - '0');
+        if (!Files.exists(saveFilePath)) return false;
+
+        try (InputStream is = Files.newInputStream(saveFilePath)) {
+
+            try (Scanner scanner = new Scanner(is)) {
+                int gridX = Integer.parseInt(scanner.nextLine());
+                int gridY = Integer.parseInt(scanner.nextLine());
+
+                byte[][] grid = new byte[gridX][gridY];
+                for (int i = 0; i < gridX; i++) {
+                    String line = scanner.nextLine();
+                    for (int j = 0; j < gridY; j++) {
+                        char c = line.charAt(j);
+                        grid[i][j] = (byte) (c - '0');
+                    }
                 }
+
+                int gameSpeed = Integer.parseInt(scanner.nextLine());
+                int generationsCount = Integer.parseInt(scanner.nextLine());
+
+                loadGame(gridX, gridY, grid, gameSpeed, generationsCount);
             }
-
-            int gameSpeed = Integer.parseInt(scanner.nextLine());
-            int generationsCount = Integer.parseInt(scanner.nextLine());
-
-            loadGame(gridX, gridY, grid, gameSpeed, generationsCount);
         } catch (IOException e) {
-            System.out.println("Ошибка чтения");
             e.printStackTrace();
+            return false;
         }
         return true;
     }
