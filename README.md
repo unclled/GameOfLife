@@ -18,7 +18,7 @@
 
 # **Скриншоты**
 
-<img src="https://raw.githubusercontent.com/unclled/GameOfLife/main/Images/PreviewMenu.png border="0">
+<img src="https://raw.githubusercontent.com/unclled/GameOfLife/main/Images/PreviewMenu.png" border="0">
 <img src="https://raw.githubusercontent.com/unclled/GameOfLife/main/Images/PreviewGame.png" border="0">
 
 # **Требования**
