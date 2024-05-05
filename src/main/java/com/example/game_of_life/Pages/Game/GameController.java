@@ -4,7 +4,9 @@ import com.example.game_of_life.Pages.ShowWarning;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -43,7 +45,8 @@ public class GameController extends GameView implements GameObserver {
         showAmountOfAliveCells(gameModel.getCellsAlive());
         showCurrentGameSpeed(gameModel.getGameSpeed());
 
-        drawField(gameModel.getGrid(), gameModel.getChangedCells());
+        drawField(gameModel.getGrid(), gameModel.getChangedCells(), gameModel.getGridX(), gameModel.getGridY());
+
     }
 
     public void setData(int gridX, int gridY, int gameSpeed, boolean generateStartCivilization, List<Integer> aliveRuleSet, List<Integer> deadRuleSet) {
@@ -55,7 +58,7 @@ public class GameController extends GameView implements GameObserver {
         gameModel.setDeadRules(deadRuleSet.stream().mapToInt(i -> i).toArray());
     }
 
-    public void uploadData(int gridX, int gridY, byte[][] grid, int gameSpeed, int generationsCount, List<Integer> aliveRuleSet, List<Integer> deadRuleSet) {
+    public void uploadData(int gridX, int gridY, byte[] grid, int gameSpeed, int generationsCount, List<Integer> aliveRuleSet, List<Integer> deadRuleSet) {
         gameModel.setGridX(gridX);
         gameModel.setGridY(gridY);
         gameModel.setGrid(grid);
@@ -139,8 +142,8 @@ public class GameController extends GameView implements GameObserver {
         gameModel.setCellsAlive(0);
         showAmountOfAliveCells(0);
         showGenerationsCounter(0);
-        gameModel.setGrid(new byte[gameModel.getGridX()][gameModel.getGridY()]);
-        drawField(gameModel.getGrid(), gameModel.getChangedCells());
+        gameModel.setGrid(new byte[gameModel.getGridX() * gameModel.getGridY()]);
+        drawField(gameModel.getGrid(), gameModel.getChangedCells(), gameModel.getGridY(), gameModel.getGridX());
         pause();
     }
 
@@ -175,7 +178,7 @@ public class GameController extends GameView implements GameObserver {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            drawField(gameModel.getGrid(), gameModel.getChangedCells());
+            drawField(gameModel.getGrid(), gameModel.getChangedCells(), gameModel.getGridY(), gameModel.getGridX());
         }
     }
 
@@ -201,7 +204,7 @@ public class GameController extends GameView implements GameObserver {
     public void onTick() {
         showAmountOfAliveCells(gameModel.getCellsAlive());
         showGenerationsCounter(gameModel.getGenerationsCount());
-        drawField(gameModel.getGrid(), gameModel.getChangedCells());
+        drawField(gameModel.getGrid(), gameModel.getChangedCells(), gameModel.getGridY(), gameModel.getGridX());
     }
 
     public void onClose() {

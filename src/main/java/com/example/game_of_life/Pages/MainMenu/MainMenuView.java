@@ -54,7 +54,7 @@ public class MainMenuView {
         newGameWindow.setVisible(true);
 
         /* устанавливаем дополнительные слушатели для визуального отображения
-        * и отслеживания корректного ввода в текстовые поля */
+         * и отслеживания корректного ввода в текстовые поля */
         gridX.textProperty().addListener((observableValue, s, t1) -> {
             if (gridX.getLength() <= 4)
                 gridXVisualize.setText(t1);

@@ -76,15 +76,14 @@ public class MainMenuModel {
                 int gridX = Integer.parseInt(scanner.nextLine());
                 int gridY = Integer.parseInt(scanner.nextLine());
 
-                byte[][] grid = new byte[gridX][gridY];
+                byte[] grid = new byte[gridX * gridY];
                 for (int i = 0; i < gridX; i++) {
                     String line = scanner.nextLine();
                     for (int j = 0; j < gridY; j++) {
                         char c = line.charAt(j);
-                        grid[i][j] = (byte) (c - '0');
+                        grid[i * gridY + j] = (byte) (c - '0');
                     }
                 }
-
                 int gameSpeed = Integer.parseInt(scanner.nextLine());
                 int generationsCount = Integer.parseInt(scanner.nextLine());
 
@@ -97,7 +96,7 @@ public class MainMenuModel {
         return true;
     }
 
-    private void loadGame(int gridX, int gridY, byte[][] grid, int gameSpeed, int generationsCount) throws IOException {
+    private void loadGame(int gridX, int gridY, byte[] grid, int gameSpeed, int generationsCount) throws IOException {
         //инициализация сохраненной игры для игрового окна
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/game_of_life/game_window.fxml"));
         Parent root = fxmlLoader.load();
@@ -120,9 +119,7 @@ public class MainMenuModel {
                 deadRuleSet);
         gameController.showAmountOfAliveCells(generationsCount);
         gameController.initialize(false);
-        primaryStage.setOnCloseRequest(event -> {
-            gameController.onClose();
-        });
+        primaryStage.setOnCloseRequest(event -> gameController.onClose());
         primaryStage.show();
     }
 

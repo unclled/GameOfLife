@@ -2,12 +2,13 @@ package com.example.game_of_life.Pages.Game;
 
 import eu.hansolo.tilesfx.tools.Point;
 import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -35,9 +36,11 @@ public class GameModel {
     private boolean isGameStopped = true;
     private boolean generateStartCivilization;
 
-    private byte[][] grid;
+    private byte[] grid;
 
     private List<Point> changedCells;
+
+    private NeighborCountFunction function;
 
     public GameModel() {
         animationTimer = new AnimationTimer() {
@@ -55,8 +58,8 @@ public class GameModel {
 
     public void initialize(boolean needToInitialize) {
         if (!needToInitialize) return;
-
-        grid = new byte[gridX][gridY];
+        function = gridX <= 819 ? this::countAliveNeighborsCycle : this::countAliveNeighborsNotCycle;
+        grid = new byte[gridX * gridY];
         if (generateStartCivilization) { //случайное заполнение поля
             Random random = new Random();
             int blockSize = gridX < 900 ? 3 : 10;
@@ -66,7 +69,7 @@ public class GameModel {
                     byte value = (byte) random.nextInt(2);
                     for (int x = i; x < Math.min(gridX, i + blockSize); x++) {
                         for (int y = j; y < Math.min(gridY, j + blockSize); y++) {
-                            grid[x][y] = value;
+                            grid[x * gridY + y] = value;
                             if (value == 1)
                                 cellsAlive++;
                         }
@@ -78,16 +81,17 @@ public class GameModel {
 
     public void newGeneration() {
         generationsCount++;
-        byte[][] nextGeneration = new byte[gridX][gridY];
-        changedCells = new ArrayList<>(); // Список для отслеживания изменений
+        byte[] nextGeneration = new byte[gridX * gridY];
+        changedCells = new ArrayList<>(); //cписок для отслеживания измененных клеток
         cellsAlive = 0;
 
+        byte[] temp = function.countAliveNeighbors();
         for (int i = 0; i < gridX; i++) {
             for (int j = 0; j < gridY; j++) {
-                int neighbors = countAliveNeighbors(i, j);
-
+                int pos = i * gridY + j;
+                int neighbors = temp[pos];
                 byte newState = 0;
-                if (grid[i][j] == 1) {
+                if (grid[pos] == 1) {
                     if (Arrays.binarySearch(aliveRules, neighbors) >= 0) {
                         newState = 1;
                     }
@@ -97,35 +101,80 @@ public class GameModel {
                     }
                 }
 
-                // Проверяем, изменилось ли состояние клетки
-                if (grid[i][j] != newState) {
-                    changedCells.add(new Point(i, j)); // Добавляем измененную клетку в список
+                //проверяем, изменилось ли состояние клетки
+                if (grid[pos] != newState) {
+                    changedCells.add(new Point(i, j)); //добавляем измененную клетку в список
                 }
 
-                nextGeneration[i][j] = newState;
+                nextGeneration[pos] = newState;
                 if (newState == 1) {
                     cellsAlive++;
                 }
             }
         }
 
-        // Обновляем сетку после создания нового поколения
+        //обновляем сетку после создания нового поколения
         grid = nextGeneration;
 
         notifyGameObserver();
     }
 
-    private int countAliveNeighbors(int i, int j) { //подсчет соседей
-        int sum = 0;
-        for (int a = -1; a <= 1; a++) {
-            for (int b = -1; b <= 1; b++) {
-                int x = (i + a + gridX) % gridX; //обработка цикличности по X
-                int y = (j + b + gridY) % gridY; //обработка цикличности по Y
-                sum += grid[x][y];
+    private byte[] countAliveNeighborsCycle() {
+        byte[] temp = new byte[gridX * gridY];
+
+        //обход одномерного массива
+        for (int i = 0; i < gridX; i++) {
+            for (int j = 0; j < gridY; j++) {
+                //используем long для сложения восьми соседей сразу
+                long sum = 0;
+
+                //список из значений смещений для обхода соседей
+                int[] dX = {-1, -1, -1, 0, 0, 1, 1, 1};
+                int[] dY = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+                for (int k = 0; k < 8; k++) {
+                    //вычисляем циклический индекс по x и y
+                    int neighborX = (i + dX[k] + gridX) % gridX;
+                    int neighborY = (j + dY[k] + gridY) % gridY;
+
+                    //индекс в одномерном массиве
+                    int neighborIndex = neighborX * gridY + neighborY;
+
+                    //суммируем значения соседей
+                    sum += grid[neighborIndex] & 0xFFL;
+                }
+
+                //сохраняем число соседей для конкретной клетки
+                temp[i * gridY + j] = (byte) sum;
             }
         }
-        sum -= grid[i][j];
-        return sum;
+
+        return temp;
+    }
+
+    private byte[] countAliveNeighborsNotCycle() {
+        byte[] temp = new byte[gridX * gridY];
+        //обход одномерного массива
+        for (int i = gridY + 1; i < gridY * gridX - gridY - 1; i++) {
+            //используем long для сложения восьми соседей сразу
+            long sum = 0;
+
+            /* обход соседей клетки
+               побитовая операция AND позволяет из grid[] извлечь только младшие 8 бит значения, в которых
+               как раз и хранится необходимая нам информация (0xFFL - 16-ричное число = 255, Long тип) */
+            sum += grid[i - gridY - 1] & 0xFFL;
+            sum += grid[i - gridY] & 0xFFL;
+            sum += grid[i - gridY + 1] & 0xFFL;
+            sum += grid[i - 1] & 0xFFL;
+            sum += grid[i + 1] & 0xFFL;
+            sum += grid[i + gridY - 1] & 0xFFL;
+            sum += grid[i + gridY] & 0xFFL;
+            sum += grid[i + gridY + 1] & 0xFFL;
+
+            //сохраняем число соседей для конкретной клетки
+            temp[i] = (byte) sum;
+        }
+        return temp;
     }
 
     public void readPattern(int x, int y, String pattern) throws IOException {
@@ -156,7 +205,7 @@ public class GameModel {
                     byte temp = (byte) (c - '0');
                     if (temp == 1)
                         cellsAlive++;
-                    grid[x][y] = temp;
+                    grid[x * gridY + y] = temp;
                     x++;
                 }
                 y++;
@@ -200,13 +249,13 @@ public class GameModel {
         return false;
     }
 
-    public void setPointsInGrid(byte[][] grid, int x, int y, int action) {
-        if (grid[x][y] == 0 && action == 1) { //если клетка мертва и нажата ЛКМ
+    public void setPointsInGrid(byte[] grid, int x, int y, int action) {
+        if (grid[x * gridY + y] == 0 && action == 1) { //если клетка мертва и нажата ЛКМ
             cellsAlive++;
-            grid[x][y] = 1;
-        } else if (grid[x][y] == 1 && action == 0) { //если клетка мертва и нажата ПКМ
+            grid[x * gridY + y] = 1;
+        } else if (grid[x * gridY + y] == 1 && action == 0) { //если клетка мертва и нажата ПКМ
             cellsAlive--;
-            grid[x][y] = 0;
+            grid[x * gridY + y] = 0;
         }
     }
 
@@ -229,11 +278,14 @@ public class GameModel {
         try (PrintWriter writer = new PrintWriter(savePath)) {
             writer.println(gridX);
             writer.println(gridY);
-            for (byte[] row : grid) {
-                for (byte cell : row) {
-                    writer.print(cell);
+            int i = 0;
+            for (byte row : grid) {
+                writer.print(row);
+                i++;
+                if (i == gridY) {
+                    i = 0;
+                    writer.println();
                 }
-                writer.println();
             }
             writer.println(gameSpeed);
             writer.println(generationsCount);
@@ -315,11 +367,11 @@ public class GameModel {
         this.generateStartCivilization = generateStartCivilization;
     }
 
-    public byte[][] getGrid() {
+    public byte[] getGrid() {
         return grid;
     }
 
-    public void setGrid(byte[][] grid) {
+    public void setGrid(byte[] grid) {
         this.grid = grid;
     }
 
