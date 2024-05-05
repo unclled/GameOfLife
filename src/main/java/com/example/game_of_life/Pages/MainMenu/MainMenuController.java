@@ -1,5 +1,7 @@
 package com.example.game_of_life.Pages.MainMenu;
 
+import com.example.game_of_life.Pages.Game.GameController;
+import com.example.game_of_life.Pages.Game.GameModel;
 import com.example.game_of_life.Pages.ShowWarning;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;

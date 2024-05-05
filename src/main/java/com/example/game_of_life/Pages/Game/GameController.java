@@ -38,13 +38,12 @@ public class GameController extends GameView implements GameObserver {
         initializeView(gameModel.getGridX(), gameModel.getGridY());
         gameModel.initialize(needToInitialize);
         showWarning = new ShowWarning(warningPane, warningText, errorText);
-
         setOnAction();
 
         showAmountOfAliveCells(gameModel.getCellsAlive());
         showCurrentGameSpeed(gameModel.getGameSpeed());
 
-        drawField(gameModel.getGrid());
+        drawField(gameModel.getGrid(), gameModel.getChangedCells());
     }
 
     public void setData(int gridX, int gridY, int gameSpeed, boolean generateStartCivilization, List<Integer> aliveRuleSet, List<Integer> deadRuleSet) {
@@ -141,7 +140,7 @@ public class GameController extends GameView implements GameObserver {
         showAmountOfAliveCells(0);
         showGenerationsCounter(0);
         gameModel.setGrid(new byte[gameModel.getGridX()][gameModel.getGridY()]);
-        drawField(gameModel.getGrid());
+        drawField(gameModel.getGrid(), gameModel.getChangedCells());
         pause();
     }
 
@@ -176,7 +175,7 @@ public class GameController extends GameView implements GameObserver {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            drawField(gameModel.getGrid());
+            drawField(gameModel.getGrid(), gameModel.getChangedCells());
         }
     }
 
@@ -202,7 +201,7 @@ public class GameController extends GameView implements GameObserver {
     public void onTick() {
         showAmountOfAliveCells(gameModel.getCellsAlive());
         showGenerationsCounter(gameModel.getGenerationsCount());
-        drawField(gameModel.getGrid());
+        drawField(gameModel.getGrid(), gameModel.getChangedCells());
     }
 
     public void onClose() {

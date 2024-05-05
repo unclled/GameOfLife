@@ -1,5 +1,6 @@
 package com.example.game_of_life;
 
+import com.example.game_of_life.Pages.MainMenu.MainMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

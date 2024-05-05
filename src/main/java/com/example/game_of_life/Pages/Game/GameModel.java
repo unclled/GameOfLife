@@ -1,15 +1,15 @@
 package com.example.game_of_life.Pages.Game;
 
+import eu.hansolo.tilesfx.tools.Point;
 import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class GameModel {
@@ -36,6 +36,8 @@ public class GameModel {
     private boolean generateStartCivilization;
 
     private byte[][] grid;
+
+    private List<Point> changedCells;
 
     public GameModel() {
         animationTimer = new AnimationTimer() {
@@ -74,28 +76,40 @@ public class GameModel {
         }
     }
 
-    public void newGeneration() { //создаем новую генерацию
+    public void newGeneration() {
         generationsCount++;
         byte[][] nextGeneration = new byte[gridX][gridY];
+        changedCells = new ArrayList<>(); // Список для отслеживания изменений
         cellsAlive = 0;
 
         for (int i = 0; i < gridX; i++) {
             for (int j = 0; j < gridY; j++) {
                 int neighbors = countAliveNeighbors(i, j);
 
+                byte newState = 0;
                 if (grid[i][j] == 1) {
-                    if (Arrays.binarySearch(aliveRules, neighbors) >= 0) { //если количество соседей удовлетворяет
-                        nextGeneration[i][j] = 1; //правилам для выживания клетки
-                        cellsAlive++;
+                    if (Arrays.binarySearch(aliveRules, neighbors) >= 0) {
+                        newState = 1;
                     }
                 } else {
-                    if (Arrays.binarySearch(deadRules, neighbors) >= 0) { //если количество соседей удовлетворяет
-                        nextGeneration[i][j] = 1; //правилам для воскрешения клетки
-                        cellsAlive++;
+                    if (Arrays.binarySearch(deadRules, neighbors) >= 0) {
+                        newState = 1;
                     }
+                }
+
+                // Проверяем, изменилось ли состояние клетки
+                if (grid[i][j] != newState) {
+                    changedCells.add(new Point(i, j)); // Добавляем измененную клетку в список
+                }
+
+                nextGeneration[i][j] = newState;
+                if (newState == 1) {
+                    cellsAlive++;
                 }
             }
         }
+
+        // Обновляем сетку после создания нового поколения
         grid = nextGeneration;
 
         notifyGameObserver();
@@ -331,5 +345,9 @@ public class GameModel {
 
     public void setGenerationsCount(int generationsCount) {
         this.generationsCount = generationsCount;
+    }
+
+    public List<Point> getChangedCells() {
+        return changedCells;
     }
 }

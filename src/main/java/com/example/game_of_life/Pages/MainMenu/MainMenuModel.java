@@ -120,7 +120,9 @@ public class MainMenuModel {
                 deadRuleSet);
         gameController.showAmountOfAliveCells(generationsCount);
         gameController.initialize(false);
-        primaryStage.setOnCloseRequest(event -> gameController.onClose());
+        primaryStage.setOnCloseRequest(event -> {
+            gameController.onClose();
+        });
         primaryStage.show();
     }
 
