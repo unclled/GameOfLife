@@ -75,26 +75,26 @@ public class GameView {
         }
     }
 
-    public void drawField(byte[] grid, List<Point> changedCells, int gridX, int gridY) { //отрисовываем поле
-        if (changedCells != null) {
-            for (Point point : changedCells) {
-                int x = (int) point.x;
-                int y = (int) point.y;
-                byte state = grid[x * gridY + y];
-                Color cellColor = (state == 1) ? liveCellColor : deadCellColor;
-                graphics.setFill(cellColor);
-                graphics.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
-            }
-        } else {
-            for (int i = 0; i < gridX; i++) {
-                for (int j = 0; j < gridY; j++) {
-                    if (grid[i * gridY + j] == 1) { //клетка живая
-                        graphics.setFill(liveCellColor);
-                        graphics.fillRect((i * cellSize) + 1, (j * cellSize) + 1, cellSize - outline, cellSize - outline);
-                    } else { //клетка мертвая
-                        graphics.setFill(deadCellColor);
-                        graphics.fillRect((i * cellSize) + 1, (j * cellSize) + 1, cellSize - outline, cellSize - outline);
-                    }
+    public void drawChanged(byte[] grid, List<Point> changedCells, int gridX, int gridY) { //отрисовываем поле
+        for (Point point : changedCells) {
+            int x = (int) point.x;
+            int y = (int) point.y;
+            byte state = grid[x * gridY + y];
+            Color cellColor = (state == 1) ? liveCellColor : deadCellColor;
+            graphics.setFill(cellColor);
+            graphics.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - outline, cellSize - outline);
+        }
+    }
+
+    public void fullDraw(byte[] grid, int gridX, int gridY) {
+        for (int i = 0; i < gridX; i++) {
+            for (int j = 0; j < gridY; j++) {
+                if (grid[i * gridY + j] == 1) { //клетка живая
+                    graphics.setFill(liveCellColor);
+                    graphics.fillRect((i * cellSize) + 1, (j * cellSize) + 1, cellSize - outline, cellSize - outline);
+                } else { //клетка мертвая
+                    graphics.setFill(deadCellColor);
+                    graphics.fillRect((i * cellSize) + 1, (j * cellSize) + 1, cellSize - outline, cellSize - outline);
                 }
             }
         }
