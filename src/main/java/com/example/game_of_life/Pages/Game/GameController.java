@@ -45,7 +45,11 @@ public class GameController extends GameView implements GameObserver {
         showAmountOfAliveCells(gameModel.getCellsAlive());
         showCurrentGameSpeed(gameModel.getGameSpeed());
 
-        drawChanged(gameModel.getGrid(), gameModel.getChangedCells(), gameModel.getGridY());
+        if (needToInitialize) {
+            drawChanged(gameModel.getGrid(), gameModel.getChangedCells(), gameModel.getGridY());
+        } else {
+            fullDraw(gameModel.getGrid(), gameModel.getGridX(), gameModel.getGridY());
+        }
     }
 
     public void setData(int gridX, int gridY, int gameSpeed, boolean generateStartCivilization, List<Integer> aliveRuleSet, List<Integer> deadRuleSet) {
