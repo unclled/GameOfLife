@@ -57,9 +57,9 @@ public class GameModel {
     }
 
     public void initialize(boolean needToInitialize) {
+        function = gridX <= 819 ? this::countAliveNeighborsCycle : this::countAliveNeighborsNotCycle;
         if (!needToInitialize) return;
 
-        function = gridX <= 819 ? this::countAliveNeighborsCycle : this::countAliveNeighborsNotCycle;
         grid = new byte[gridX * gridY];
         changedCells = new ArrayList<>();
 
