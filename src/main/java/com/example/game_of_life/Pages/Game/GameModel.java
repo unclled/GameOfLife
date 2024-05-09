@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class GameModel {
@@ -19,11 +20,9 @@ public class GameModel {
     private static final int TIME_STEP = 50;
 
     private GameObserver gameObserver;
+    private NeighborCountFunction function;
 
     private final AnimationTimer animationTimer;
-
-    private int[] aliveRules;
-    private int[] deadRules;
 
     StringBuilder selectedPattern = new StringBuilder();
 
@@ -36,11 +35,12 @@ public class GameModel {
     private boolean isGameStopped = true;
     private boolean generateStartCivilization;
 
+    private int[] aliveRules;
+    private int[] deadRules;
+
     private byte[] grid;
 
     private List<Point> changedCells;
-
-    private NeighborCountFunction function;
 
     public GameModel() {
         animationTimer = new AnimationTimer() {
@@ -58,22 +58,41 @@ public class GameModel {
 
     public void initialize(boolean needToInitialize) {
         if (!needToInitialize) return;
+
         function = gridX <= 819 ? this::countAliveNeighborsCycle : this::countAliveNeighborsNotCycle;
         grid = new byte[gridX * gridY];
-        if (generateStartCivilization) { //случайное заполнение поля
-            Random random = new Random();
-            int blockSize = gridX < 900 ? 3 : 10;
-            for (int i = 0; i < gridX; i += blockSize) {
-                for (int j = 0; j < gridY; j += blockSize) {
+        changedCells = new ArrayList<>();
 
-                    byte value = (byte) random.nextInt(2);
-                    for (int x = i; x < Math.min(gridX, i + blockSize); x++) {
-                        for (int y = j; y < Math.min(gridY, j + blockSize); y++) {
-                            grid[x * gridY + y] = value;
-                            if (value == 1)
-                                cellsAlive++;
-                        }
-                    }
+        if (generateStartCivilization) { //случайное заполнение поля
+            double percent = (gridX <= 1300 && gridY <= 1300) ? 0.75 : 0.28;
+            ThreadLocalRandom random = ThreadLocalRandom.current();
+
+            int totalCells = gridX * gridY;
+            int cellsToChange = (int) (totalCells * percent); //количество ячеек для изменения
+
+            //создаем список всех возможных индексов ячеек
+            List<Integer> indices = new ArrayList<>(totalCells);
+            for (int i = 0; i < totalCells; i++) {
+                indices.add(i);
+            }
+
+            //перемешиваем список индексов, чтобы случайным образом выбрать ячейки для изменения
+            Collections.shuffle(indices, random);
+
+            //изменяем NN% ячеек, используя перемешанные индексы
+            for (int i = 0; i < cellsToChange; i++) {
+                int index = indices.get(i);
+
+                int x = index / gridY;
+                int y = index % gridY;
+
+                byte value = (byte) random.nextInt(2);
+
+                grid[index] = value;
+
+                if (value == 1) {
+                    changedCells.add(new Point(x, y));
+                    cellsAlive++;
                 }
             }
         }
@@ -84,20 +103,22 @@ public class GameModel {
         byte[] nextGeneration = new byte[gridX * gridY];
         changedCells = new ArrayList<>(); //cписок для отслеживания измененных клеток
         cellsAlive = 0;
-
         byte[] temp = function.countAliveNeighbors();
         for (int i = 0; i < gridX; i++) {
             for (int j = 0; j < gridY; j++) {
                 int pos = i * gridY + j;
                 int neighbors = temp[pos];
                 byte newState = 0;
+
                 if (grid[pos] == 1) {
                     if (Arrays.binarySearch(aliveRules, neighbors) >= 0) {
                         newState = 1;
+                        cellsAlive++;
                     }
                 } else {
                     if (Arrays.binarySearch(deadRules, neighbors) >= 0) {
                         newState = 1;
+                        cellsAlive++;
                     }
                 }
 
@@ -107,12 +128,8 @@ public class GameModel {
                 }
 
                 nextGeneration[pos] = newState;
-                if (newState == 1) {
-                    cellsAlive++;
-                }
             }
         }
-
         //обновляем сетку после создания нового поколения
         grid = nextGeneration;
 

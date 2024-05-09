@@ -523,7 +523,7 @@
                   <CheckBox fx:id="dead8" layoutX="248.0" />
                </Group>
             </HBox>
-            <Text fill="#7b9cff" strokeType="OUTSIDE" strokeWidth="0.0" text="Клетка умирает" textAlignment="CENTER">
+            <Text fill="#7b9cff" strokeType="OUTSIDE" strokeWidth="0.0" text="Клетка возрождается" textAlignment="CENTER">
                <font>
                   <Font name="Segoe UI Black" size="14.0" />
                </font>

@@ -75,7 +75,7 @@ public class GameView {
         }
     }
 
-    public void drawChanged(byte[] grid, List<Point> changedCells, int gridX, int gridY) { //отрисовываем поле
+    public void drawChanged(byte[] grid, List<Point> changedCells, int gridY) { //отрисовываем поле
         for (Point point : changedCells) {
             int x = (int) point.x;
             int y = (int) point.y;
